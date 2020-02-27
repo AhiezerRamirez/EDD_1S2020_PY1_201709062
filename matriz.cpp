@@ -88,34 +88,35 @@ void Matriz::imprimir(){
     temph=this->cabecerasHorizontal->primero;
     while (temph!=NULL){
         NodoMatriz *aux=temph->listavertica->primero;
-        if(aux!=NULL){
-            if(aux->abajo==NULL){
-                filematriz<<temph->Gnombre+" -> "+aux->Gnombre+" [ dir=both];\n";
-            }else{
-                while (aux->abajo!=NULL) {
-                    filematriz<<aux->Gnombre+" -> "+aux->abajo->Gnombre+" [ dir=both];\n";
-                    aux=aux->abajo;
-                }
-            }
+        //if(aux->abajo==NULL){
+          //  filematriz<<temph->Gnombre+" -> "+aux->Gnombre+" [ dir=both];\n";
+        //}else{
+            filematriz<<temph->Gnombre+" -> "+aux->Gnombre+" [ dir=both];\n";
+            while (aux->abajo!=NULL) {
+                filematriz<<aux->Gnombre+" -> "+aux->abajo->Gnombre+" [ dir=both];\n";
+                aux=aux->abajo;
+          //  }
         }
+
         temph=temph->adelante;
     }
 
     tempv=this->cabeceravertical->primero;
     while (tempv!=NULL) {
         NodoMatriz *aux=tempv->listahorizonta->primero;
-        if(aux!=NULL){
-            if(aux->adelante==NULL){
-                filematriz<<tempv->Gnombre+" -> "+aux->Gnombre+" [ dir=both];\n";
-            }else{
-                while (aux->adelante!=NULL) {
-                    filematriz<<aux->Gnombre+" -> "+aux->adelante->Gnombre+" [ dir=both];\n";
-                    aux=aux->adelante;
-                }
+        //if(aux->adelante==NULL){
+           // filematriz<<tempv->Gnombre+" -> "+aux->Gnombre+" [ dir=both];\n";
+            //}else{
+            filematriz<<tempv->Gnombre+" -> "+aux->Gnombre+" [constraint=false, dir=both];\n";
+            while (aux->adelante!=NULL) {
+                filematriz<<aux->Gnombre+" -> "+aux->adelante->Gnombre+" [ dir=both];\n";
+                aux=aux->adelante;
             }
-        }
+        //}
+
         tempv=tempv->abajo;
     }
+//------------------------Fin enlaces de nodo cabecera y de mas
 
     temph=this->cabecerasHorizontal->primero;
     filematriz<<"{ rank=same;root;";
@@ -123,6 +124,19 @@ void Matriz::imprimir(){
         filematriz<<temph->Gnombre+" ;";
         temph=temph->adelante;
     }
-    filematriz<<"}\n}";
+    filematriz<<"}";
+
+    tempv=this->cabeceravertical->primero;
+    while (tempv!=NULL) {
+        filematriz<<"{rank= same;"+tempv->Gnombre+";";
+        NodoMatriz *aux=tempv->listahorizonta->primero;
+        while (aux!=NULL) {
+            filematriz<<aux->Gnombre+";";
+            aux=aux->adelante;
+        }
+        filematriz<<"}\n";
+        tempv=tempv->abajo;
+    }
+    filematriz<<"}";
     filematriz.close();
 }
