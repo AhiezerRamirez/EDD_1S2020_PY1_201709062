@@ -1,0 +1,36 @@
+#ifndef CABEZERAHORIZONTAL_H
+#define CABEZERAHORIZONTAL_H
+#include<iostream>
+
+template<typename T>
+class Nodo
+{
+public:
+    T dato;
+    Nodo *arriba;
+    Nodo *abajo;
+    Nodo(T dato) {
+        this->dato=dato;
+        this->arriba=NULL;
+        this->abajo=NULL;
+    }
+};
+
+template<typename T>class CabezeraVertica
+{
+public:
+    Nodo<T> *primero;
+    Nodo<T> *ultimo;
+    int size;
+    CabezeraVertica();
+    void insertarInicio(T dato);
+    void insertarEn(int pos);
+    void insertarFinal(T dato);
+    void borrarInicio();
+    void borrarEn(int pos);
+    void borrarFinal();
+    T buscar();
+    
+};
+
+#endif // CABEZERAHORIZONTAL_H

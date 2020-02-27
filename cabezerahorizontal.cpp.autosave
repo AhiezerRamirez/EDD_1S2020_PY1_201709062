@@ -1,0 +1,6 @@
+#include "cabezerahorizontal.h"
+
+CabezeraVertica::CabezeraVertica()
+{
+
+}
