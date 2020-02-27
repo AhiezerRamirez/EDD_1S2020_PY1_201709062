@@ -31,6 +31,44 @@ void ListarHorizontal::insertar(NodoMatriz *node, int x){
             temp->atras=node;
         }
     }
+    this->size++;
+}
+
+void ListarHorizontal::borrar(int x, int y){
+    NodoMatriz* temp=buscarxy(x,y);
+    if(temp!=NULL){
+        if(temp==this->primero && temp==this->ultimo){
+            this->primero=NULL;
+            this->ultimo=NULL;
+            delete temp;
+            this->size--;
+        }else if (temp==this->primero) {
+            this->primero=this->primero->adelante;
+            delete this->primero->atras;
+            this->primero->atras=NULL;
+            this->size--;
+        }else if (temp== this->ultimo) {
+            this->ultimo=this->ultimo->atras;
+            delete this->ultimo->adelante;
+            this->ultimo->adelante=NULL;
+            this->size--;
+        }else {
+            temp->atras->adelante=temp->adelante;
+            temp->adelante->atras=temp->atras;
+            delete temp;
+            this->size--;
+        }
+    }
+}
+
+NodoMatriz* ListarHorizontal::buscarxy(int x, int y){
+    NodoMatriz *temp=this->primero;
+    while (temp!=NULL) {
+        if(temp->x==x && temp->y==y)
+            return temp;
+        temp=temp->adelante;
+    }
+    return NULL;
 }
 
 NodoMatriz* ListarHorizontal::buscar(std::string dato){

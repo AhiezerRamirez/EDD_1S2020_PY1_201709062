@@ -23,7 +23,8 @@ void CabeceraVertica::insertarArriba(std::string dato,int y){
 Nodo* CabeceraVertica::insertarEn(std::string dato,int y){
     Nodo *n =new Nodo(dato, y);
     if(this->primero==NULL){
-        insertarArriba(dato,y);
+        this->primero=n;
+        this->ultimo=n;
     }else{
         if(y <=primero->y){
             n->abajo=primero;

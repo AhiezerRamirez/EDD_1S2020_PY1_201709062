@@ -15,6 +15,7 @@ int main()
     matrix.insertar("Martes",2,"11:30",11,"Patologo");
     matrix.insertar("Domingo",0,"1:30",1,"Muertologo");
     matrix.imprimir();
+    std::cout<<matrix.cabeceravertical->primero->abajo->abajo->abajo->abajo->listahorizonta->size;
     cout << "Hello World!" << endl;
     return 0;
 }

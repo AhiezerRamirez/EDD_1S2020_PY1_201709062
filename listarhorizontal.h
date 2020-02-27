@@ -11,6 +11,8 @@ public:
     int size;
     ListarHorizontal();
     void insertar(NodoMatriz *node,int x);
+    void borrar(int x, int y);
+    NodoMatriz *buscarxy(int x, int y);
     NodoMatriz *buscar(std::string dato);
 };
 

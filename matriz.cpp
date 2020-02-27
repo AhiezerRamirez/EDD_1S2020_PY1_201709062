@@ -15,21 +15,22 @@ void Matriz::insertar(std::string dia, int x, std::string hora, int y, std::stri
     if(F==NULL && C==NULL){
         C=this->cabecerasHorizontal->insertarEn(dia,x);
         F=this->cabeceravertical->insertarEn(hora,y);
-        F->listahorizonta->insertar(n,y);
-        C->listavertica->insertar(n,x);
+        F->listahorizonta->insertar(n,x);
+        C->listavertica->insertar(n,y);
     }else if(F==NULL && C!=NULL){
         F=this->cabeceravertical->insertarEn(hora,y);
-        F->listahorizonta->insertar(n,y);
-        C->listavertica->insertar(n,x);
+        F->listahorizonta->insertar(n,x);
+        C->listavertica->insertar(n,y);
     }else if(F!=NULL && C==NULL){
         C=this->cabecerasHorizontal->insertarEn(dia,x);
-        F->listahorizonta->insertar(n,y);
-        C->listavertica->insertar(n,x);
+        F->listahorizonta->insertar(n,x);
+        C->listavertica->insertar(n,y);
     }else{
-        F->listahorizonta->insertar(n,y);
-        C->listavertica->insertar(n,x);
+        F->listahorizonta->insertar(n,x);
+        C->listavertica->insertar(n,y);
     }
 }
+
 
 void Matriz::imprimir(){
     std::string ruta;

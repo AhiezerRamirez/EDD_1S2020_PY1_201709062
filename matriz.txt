@@ -7,26 +7,27 @@ CH1[label="Lunes"];
 CH2[label="Martes"];
 CH4[label="Jueves"];
 CH5[label="Viernes"];
-CH6[label="Sabado"];
 CV1 [label="1:30"];
 CV6 [label="06:30"];
 CV10 [label="10:30"];
+CV11 [label="11:30"];
 CV14 [label="14:30"];
 CV15 [label="15:30"];
 CV20 [label="20:30"];
 nodo01[label="Muertologo"];
 nodo16[label="Ginecologo"];
-nodo28[label="Patologo"];
-nodo215[label="Cardiologo"];
+nodo211[label="Patologo"];
 nodo214[label="Cardiologo"];
+nodo215[label="Cardiologo"];
+nodo410[label="Patologo"];
 nodo414[label="Urologo"];
 nodo520[label="Oftafmologo"];
-nodo610[label="Patologo"];
 nodo01[label="Muertologo"];
 nodo16[label="Ginecologo"];
-nodo610[label="Patologo"];
+nodo410[label="Patologo"];
+nodo211[label="Patologo"];
+nodo214[label="Cardiologo"];
 nodo414[label="Urologo"];
-nodo28[label="Patologo"];
 nodo215[label="Cardiologo"];
 nodo520[label="Oftafmologo"];
 root -> CH0[ dir=both];
@@ -34,25 +35,34 @@ CH0 -> CH1[ dir=both];
 CH1 -> CH2[ dir=both];
 CH2 -> CH4[ dir=both];
 CH4 -> CH5[ dir=both];
-CH5 -> CH6[ dir=both];
 root -> CV1[ dir=both];
 CV1 -> CV6 [ dir=both];
 CV6 -> CV10 [ dir=both];
-CV10 -> CV14 [ dir=both];
+CV10 -> CV11 [ dir=both];
+CV11 -> CV14 [ dir=both];
 CV14 -> CV15 [ dir=both];
 CV15 -> CV20 [ dir=both];
 CH0 -> nodo01 [ dir=both];
 CH1 -> nodo16 [ dir=both];
-nodo28 -> nodo215 [ dir=both];
-nodo215 -> nodo214 [ dir=both];
-CH4 -> nodo414 [ dir=both];
+CH2 -> nodo211 [ dir=both];
+nodo211 -> nodo214 [ dir=both];
+nodo214 -> nodo215 [ dir=both];
+CH4 -> nodo410 [ dir=both];
+nodo410 -> nodo414 [ dir=both];
 CH5 -> nodo520 [ dir=both];
-CH6 -> nodo610 [ dir=both];
-CV1 -> nodo01 [ dir=both];
-CV6 -> nodo16 [ dir=both];
-CV10 -> nodo610 [ dir=both];
-nodo414 -> nodo28 [ dir=both];
-CV15 -> nodo215 [ dir=both];
-CV20 -> nodo520 [ dir=both];
-{ rank=same;root;CH0 ;CH1 ;CH2 ;CH4 ;CH5 ;CH6 ;}
+CV1 -> nodo01 [constraint=false, dir=both];
+CV6 -> nodo16 [constraint=false, dir=both];
+CV10 -> nodo410 [constraint=false, dir=both];
+CV11 -> nodo211 [constraint=false, dir=both];
+CV14 -> nodo214 [constraint=false, dir=both];
+nodo214 -> nodo414 [ dir=both];
+CV15 -> nodo215 [constraint=false, dir=both];
+CV20 -> nodo520 [constraint=false, dir=both];
+{ rank=same;root;CH0 ;CH1 ;CH2 ;CH4 ;CH5 ;}{rank= same;CV1;nodo01;}
+{rank= same;CV6;nodo16;}
+{rank= same;CV10;nodo410;}
+{rank= same;CV11;nodo211;}
+{rank= same;CV14;nodo214;nodo414;}
+{rank= same;CV15;nodo215;}
+{rank= same;CV20;nodo520;}
 }

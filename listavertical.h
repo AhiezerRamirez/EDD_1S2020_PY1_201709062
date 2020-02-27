@@ -10,6 +10,8 @@ public:
     int size;
     ListaVertical();
     void insertar(NodoMatriz *node,int y);
+    void borrar(int x,int y);
+    NodoMatriz* buscarxy(int x, int y);
     NodoMatriz* buscar(std::string dato);
 };
 
