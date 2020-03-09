@@ -34,9 +34,8 @@ public:
     int size;
     CabeceraVertica();
     Nodo* insertarEn(std::string dato,int pos);
-    void borrarArriba();
-    void borrarEn(int pos);
-    void borrarAbajo();
+    void borrarEn(int y);
+    Nodo* buscary(int y);
     Nodo* buscar(std::string dato);
 
 };

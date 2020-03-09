@@ -20,7 +20,6 @@ public:
         this->x=x;
         this->Gnombre="CH"+std::to_string(x);
         listavertica=new ListaVertical();
-        //this->listavertica=new ListaVertical();
     }
 };
 
@@ -33,7 +32,8 @@ public:
     int size;
     CabeceraHorizontal();
     NodoH* insertarEn(std::string dato,int x);
-    void borrar(std::string dato);
+    void borrar(int x);
+    NodoH* buscarx(int x);
     NodoH*buscar(std::string dato);
 
 };

@@ -21,7 +21,7 @@ void CabeceraVertica::insertarArriba(std::string dato,int y){
 }
 
 Nodo* CabeceraVertica::insertarEn(std::string dato,int y){
-    Nodo *n =new Nodo(dato, y);
+    Nodo *n=new Nodo(dato, y);
     if(this->primero==NULL){
         this->primero=n;
         this->ultimo=n;
@@ -66,32 +66,27 @@ void CabeceraVertica::insertarAbajo(std::string dato,int y){
     this->size++;
 }
 
-void CabeceraVertica::borrarArriba(){
-    if(this->primero->abajo==NULL){
-        this->primero=NULL;
-        this->ultimo=NULL;
-        this->size--;
-    }else if(this->primero!=NULL){
-        primero=primero->abajo;
-        delete primero->arriba;
-        primero->arriba=NULL;
-        size--;
-    }
-}
-
-void CabeceraVertica::borrarEn(int pos){
-    if(pos<1 || pos > size){
-        return;
-    }else{
-        if(pos==1)
-            borrarArriba();
-        else if(pos==size)
-            borrarAbajo();
-        else if(this->primero!=NULL){
-            Nodo *temp=primero;
-            for (int var = 0; var < pos; ++var) {
-                temp=temp->abajo;
-            }
+void CabeceraVertica::borrarEn(int y){
+    Nodo *temp=buscary(y);
+    if(temp!=NULL){
+        if(temp==this->primero && temp==this->ultimo){
+            this->primero=NULL;
+            this->ultimo=NULL;
+            delete temp;
+            this->size--;
+        }else if(temp == this->primero){
+            this->primero=primero->abajo;
+            //Nodo *aux= primero->arriba;
+            primero->arriba=NULL;
+            delete temp;
+            this->size--;
+        }else if(temp==this->ultimo){
+            this->ultimo=this->ultimo->arriba;
+            //Nodo *aux= ultimo->abajo;
+            this->ultimo->abajo=NULL;
+            delete temp;
+            this->size--;
+        }else{
             temp->arriba->abajo=temp->abajo;
             temp->abajo->arriba=temp->arriba;
             delete temp;
@@ -100,17 +95,16 @@ void CabeceraVertica::borrarEn(int pos){
     }
 }
 
-void CabeceraVertica::borrarAbajo(){
-    if(this->primero->abajo==NULL){
-        primero=NULL;
-        ultimo=NULL;
-        size--;
-    }else if(this->primero!=NULL){
-        ultimo=ultimo->arriba;
-        delete ultimo->abajo;
-        ultimo->abajo=NULL;
-        size--;
+
+
+Nodo* CabeceraVertica::buscary(int y){
+    Nodo *p=primero;
+    while (p!=NULL) {
+        if(p->y==y)
+            return p;
+        p=p->abajo;
     }
+    return NULL;
 }
 
 Nodo* CabeceraVertica::buscar(std::string dato){

@@ -40,22 +40,24 @@ void ListarHorizontal::borrar(int x, int y){
         if(temp==this->primero && temp==this->ultimo){
             this->primero=NULL;
             this->ultimo=NULL;
-            delete temp;
+            //delete temp;
             this->size--;
         }else if (temp==this->primero) {
             this->primero=this->primero->adelante;
-            delete this->primero->atras;
+            //NodoMatriz *aux= this->primero->atras;
             this->primero->atras=NULL;
+            //delete aux;
             this->size--;
         }else if (temp== this->ultimo) {
             this->ultimo=this->ultimo->atras;
-            delete this->ultimo->adelante;
+            //NodoMatriz *aux= this->ultimo->adelante;
             this->ultimo->adelante=NULL;
+            //delete aux;
             this->size--;
         }else {
             temp->atras->adelante=temp->adelante;
             temp->adelante->atras=temp->atras;
-            delete temp;
+            //delete temp;
             this->size--;
         }
     }

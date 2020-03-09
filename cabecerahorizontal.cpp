@@ -36,6 +36,45 @@ NodoH* CabeceraHorizontal::insertarEn(std::string dato, int x){
     return n;
 }
 
+void CabeceraHorizontal::borrar(int x){
+    NodoH *temp=buscarx(x);
+    if(temp!=NULL){
+        if(temp==this->primero && temp== this->ultimo){
+            this->primero=NULL;
+            this->ultimo=NULL;
+            delete temp;
+            this->size--;
+        }else if(temp==primero){
+            this->primero=primero->adelante;
+            //NodoH *aux=this->primero->atras;
+            this->primero->atras=NULL;
+            delete temp;
+            this->size--;
+        }else if(temp==ultimo){
+            this->ultimo=ultimo->atras;
+            //NodoH *aux=this->ultimo->adelante;
+            this->ultimo->adelante=NULL;
+            delete temp;
+            this->size--;
+        }else{
+            temp->atras->adelante=temp->adelante;
+            temp->adelante->atras=temp->atras;
+            delete temp;
+            this->size--;
+        }
+    }
+}
+
+NodoH* CabeceraHorizontal::buscarx(int x){
+    NodoH *temp=this->primero;
+    while (temp!=NULL) {
+        if(temp->x==x)
+            return temp;
+        temp=temp->adelante;
+    }
+    return NULL;
+}
+
 NodoH *CabeceraHorizontal::buscar(std::string dato){
     NodoH *temp=this->primero;
     while (temp!=NULL) {

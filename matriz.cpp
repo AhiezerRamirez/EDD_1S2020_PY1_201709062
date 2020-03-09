@@ -31,6 +31,23 @@ void Matriz::insertar(std::string dia, int x, std::string hora, int y, std::stri
     }
 }
 
+void Matriz::borrar(std::string dia,int x, std::string hora, int y){
+    NodoH *C=this->cabecerasHorizontal->buscarx(x);
+    Nodo *F=this->cabeceravertical->buscary(y);
+
+    if(C!=NULL && F!=NULL){
+        C->listavertica->borrar(x,y);
+        F->listahorizonta->borrar(x,y);
+    }
+
+    if(C->listavertica->primero==NULL){
+        this->cabecerasHorizontal->borrar(x);
+    }
+
+    if(F->listahorizonta->primero==NULL){
+        this->cabeceravertical->borrarEn(y);
+    }
+}
 
 void Matriz::imprimir(){
     std::string ruta;

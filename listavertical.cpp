@@ -44,14 +44,16 @@ void ListaVertical::borrar(int x, int y){
             delete aux;
             this->size--;
         }else if(aux==this->primero){
-            primero=primero->abajo;
-            delete primero->arriba;
-            primero->arriba=NULL;
-            this->siz--;
+            this->primero=primero->abajo;
+            NodoMatriz *temp= this->primero->arriba;
+            this->primero->arriba=NULL;
+            delete temp;
+            this->size--;
         }else if(aux==this->ultimo){
-            ultimo=ultimo->arriba;
-            delete ultimo->abajo;
-            ultimo->abajo=NULL;
+            this->ultimo=ultimo->arriba;
+            NodoMatriz *temp= this->ultimo->abajo;
+            this->ultimo->abajo=NULL;
+            delete temp;
             this->size--;
         }else{
             aux->arriba->abajo=aux->abajo;
@@ -65,7 +67,7 @@ void ListaVertical::borrar(int x, int y){
 NodoMatriz* ListaVertical::buscarxy(int x, int y){
     NodoMatriz *temp=this->primero;
     while (temp!=NULL) {
-        if(temp->x==x && temp->y=y)
+        if(temp->x==x && temp->y==y)
             return temp;
         temp=temp->abajo;
     }

@@ -9,7 +9,9 @@ SOURCES += main.cpp \
     listavertical.cpp \
     matriz.cpp \
     listarhorizontal.cpp \
-    nodomatriz.cpp
+    nodomatriz.cpp \
+    arbolbinario.cpp \
+    listadoblecircular.cpp
 
 HEADERS += \
     cabeceraVertical.h \
@@ -17,4 +19,6 @@ HEADERS += \
     listavertical.h \
     matriz.h \
     listarhorizontal.h \
-    nodomatriz.h
+    nodomatriz.h \
+    arbolbinario.h \
+    listadoblecircular.h
