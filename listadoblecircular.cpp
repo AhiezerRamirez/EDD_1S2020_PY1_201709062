@@ -1,4 +1,8 @@
 #include "listadoblecircular.h"
+#include <fstream>
+#include <chrono>
+#include <thread>
+
 
 ListaDobleCircular::ListaDobleCircular()
 {
@@ -7,7 +11,7 @@ ListaDobleCircular::ListaDobleCircular()
 }
 
 void ListaDobleCircular::insertar(std::string dato){
-    Nodo *n=new Nodo(caracter,espacio);
+    NodoCircular *n=new NodoCircular(dato);
      if(primero==NULL){
          primero=n;
          ultimo=n;
@@ -22,6 +26,26 @@ void ListaDobleCircular::insertar(std::string dato){
      }
      this->size++;
 }
-void ListaDobleCircular::graficar(){
+std::string ListaDobleCircular::toString(){
+    NodoCircular *aux=this->primero;
+    std::string cadena="digraph G {\n node [shape = square]; \n graph [rankdir=LR];\n";
+    while (aux!=ultimo) {
+        cadena+=aux->palabra+" -> "+aux->siguiente->palabra +"[ dir=both];\n";
+        aux=aux->siguiente;
+    }
+    cadena+=aux->palabra+" -> "+aux->siguiente->palabra +"[ dir=both];\n }";
 
+    return cadena;
+}
+void ListaDobleCircular::graficar(){
+    std::string texto,ruta;
+        ruta="/home/ahiezer/Proyecto1Edd2020/Diccionario.dot";
+        texto=toString();
+        std::ofstream fileCitas;
+        fileCitas.open(ruta.c_str());
+        fileCitas<<texto;
+        fileCitas.close();
+        system("cd /home/ahiezer/Proyecto1Edd2020/ && dot Diccionario.dot -Tjpg -o Diccionario.jpg");
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        system("xdg-open /home/ahiezer/Proyecto1Edd2020/Diccionario.jpg");
 }

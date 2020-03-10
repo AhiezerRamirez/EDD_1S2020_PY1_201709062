@@ -1,16 +1,18 @@
 #include <iostream>
 #include "json.hpp"
+#include "core.h"
 #include "matriz.h"
 #include "arbolbinario.h"
 
 using namespace std;
 using json = nlohmann::json;
 
-void leerJson();
+void leerJson(Core *cor);
 
 int main()
 {
 
+    /*Core *core=new Core();
     while (true) {
         std::cout<<"\n\n";
         std::cout<<"-----------------------------------------"<<std::endl;
@@ -25,7 +27,7 @@ int main()
         std::cin>>opcion;
         switch (opcion) {
         case 1:
-            leerJson();
+            leerJson(core);
             break;
         case 5:
             exit(EXIT_SUCCESS);
@@ -35,7 +37,7 @@ int main()
             break;
         }
     }
-    /*Matriz matrix;
+    Matriz matrix;
     matrix.insertar("Martes",2,"14:30",14,"Cardiologo");
     matrix.insertar("Jueves",4,"10:30",10,"Patologo");
     matrix.insertar("Viernes",5,"20:30",20,"Oftafmologo");
@@ -73,7 +75,7 @@ int main()
     return 0;
 }
 
-void leerJson(){
+void leerJson(Core *cor){
     while (true) {
         std::cout<<"Por favor, ingrese la ruta de ubicacion"<<std::endl;
         std::cout<<"de su archivo de configuarcion"<<std::endl;
@@ -83,10 +85,10 @@ void leerJson(){
         if(i.is_open()){
             json j3;
             i >> j3;
-            for(unsigned int x = 0; x < j3.at("eBooks").size(); x++)
+            for(unsigned int x = 0; x < j3.at("diccionario").size(); x++)
                 {
-                    cout << "Edition of the book: " << j3.at("eBooks")[x].at("edition") << endl;
-                    cout << "Language of the book: " << j3.at("eBooks")[x].at("language") << endl;
+                    cor->diccionario->insertar(j3.at("diccionario")[x].at("palabra"));
+                    cout << "Palabra: " << j3.at("diccionario")[x].at("palabra") << endl;
                 }
             std::cout<<"Configuracion acceptada.\n"<<std::endl;
 

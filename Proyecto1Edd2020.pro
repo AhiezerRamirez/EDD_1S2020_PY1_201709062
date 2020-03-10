@@ -11,7 +11,12 @@ SOURCES += main.cpp \
     listarhorizontal.cpp \
     nodomatriz.cpp \
     arbolbinario.cpp \
-    listadoblecircular.cpp
+    listadoblecircular.cpp \
+    core.cpp \
+    listasimple.cpp \
+    cola.cpp \
+    listadoble.cpp \
+    listasimpleordenada.cpp
 
 HEADERS += \
     cabeceraVertical.h \
@@ -21,4 +26,9 @@ HEADERS += \
     listarhorizontal.h \
     nodomatriz.h \
     arbolbinario.h \
-    listadoblecircular.h
+    listadoblecircular.h \
+    core.h \
+    listasimple.h \
+    cola.h \
+    listadoble.h \
+    listasimpleordenada.h
