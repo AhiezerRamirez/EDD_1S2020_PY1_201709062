@@ -41,10 +41,10 @@ std::string ListaSimpleOrdenada::toString(){
         std::string cadena;
         cadena="digraph G {node [shape = square]; \n graph [rankdir=LR]; \n";
         while (temp->siguiente!=NULL) {
-            cadena+="\"["+temp->punteo+"]\" ->";
+            cadena+="\"["+std::to_string(temp->punteo)+"]\" ->";
             temp=temp->siguiente;
         }
-        cadena+="\"["+temp->punteo+"]\"}";
+        cadena+="\"["+std::to_string(temp->punteo)+"]\"}";
         return cadena;
 }
 
@@ -66,10 +66,10 @@ std::string ListaSimpleOrdenada::toString2(){
     std::string cadena;
     cadena="digraph G {node [shape = square]; \n graph [rankdir=LR]; \n";
     while (temp->siguiente!=NULL) {
-        cadena+="\"["+temp->nombre+": "+temp->punteo+"]\" ->";
+        cadena+="\"["+temp->nombre+": "+std::to_string(temp->punteo)+"]\" ->";
         temp=temp->siguiente;
     }
-    cadena+="\"["+temp->nombre+": "+temp->punteo+"]\"}";
+    cadena+="\"["+temp->nombre+": "+std::to_string(temp->punteo)+"]\"}";
     return cadena;
 }
 

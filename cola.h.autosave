@@ -23,6 +23,7 @@ public:
     void encolar(std::string letra, int puntos);
     NodoCola* desencolar();
     void imprimir();
+    std::string toString();
 };
 
 #endif // COLA_H
