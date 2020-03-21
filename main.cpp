@@ -12,8 +12,19 @@ void leerJson(Core *cor);
 int main()
 {
 
-    /*Core *core=new Core();
-    while (true) {
+    Core *core=new Core();
+    //core->llenarColaFichas();
+    //core->Fichas->imprimir();
+    core->arbol->insertar("Rudy");
+    core->arbol->insertar("pedro");
+    core->arbol->insertar("Anibal");
+    core->arbol->insertar("Andrea");
+    core->arbol->insertar("Joselinne");
+    //core->arbol->graficar();
+    core->arbol->preorder();
+    core->arbol->inorder();
+    core->arbol->postorder();
+   /* while (true) {
         std::cout<<"\n\n";
         std::cout<<"-----------------------------------------"<<std::endl;
         std::cout<<"        1)Lectura de Archivo             "<<std::endl;

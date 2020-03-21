@@ -25,7 +25,7 @@ public:
     void insertar(std::string letra, int puntos);
     NodoFicha* borrar(int pos);
     std::string toString();
-    void graficar();
+    void graficar(std::string usuario);
 };
 
 #endif // LISTADOBLE_H

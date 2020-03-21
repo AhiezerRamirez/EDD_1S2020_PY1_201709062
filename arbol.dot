@@ -1,0 +1,7 @@
+digraph BST {
+    node [fontname="Arial"];
+    Rudy -> Anibal;
+    Anibal -> Andrea;
+    Anibal -> Joselinne;
+    Rudy -> pedro;
+}

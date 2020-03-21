@@ -1,4 +1,7 @@
 #include "listadoble.h"
+#include <fstream>
+#include <chrono>
+#include <thread>
 
 ListaDoble::ListaDoble()
 {
@@ -74,4 +77,17 @@ std::string ListaDoble::toString(){
         contado++;
         temp=temp->siguiente;
     }
+}
+
+void ListaDoble::graficar(std::string usuario){
+    std::string texto,ruta;
+        ruta="/home/ahiezer/Proyecto1Edd2020/Ltrs_"+usuario+".dot";
+        texto=toString();
+        std::ofstream fileCitas;
+        fileCitas.open(ruta.c_str());
+        fileCitas<<texto;
+        fileCitas.close();
+        system("cd /home/ahiezer/Proyecto1Edd2020/ && dot Ltrs_"+usuario+".dot -Tjpg -o Ltrs_"+usuario+".jpg");
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        system("xdg-open /home/ahiezer/Proyecto1Edd2020/Ltrs_"+usuario+".jpg");
 }
