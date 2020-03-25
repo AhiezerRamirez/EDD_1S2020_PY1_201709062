@@ -9,6 +9,7 @@ Core::Core()
     this->casillasEspeciales=new ListaSimple();
     this->casDobles=new ListaDoble();
     this->casTriples=new ListaDoble();
+    this->onlinePlayers=new ListaJugadoresLinea();
 }
 
 void Core::llenarColaFichas(){

@@ -73,7 +73,8 @@ int main()
             //ingresarJugadores(core);
             break;
         case 3:
-            tablero->imprimirTablero();
+            tablero->escojerJugadores();
+            tablero->dibujaTablero();
             break;
         case 5:
             exit(EXIT_SUCCESS);

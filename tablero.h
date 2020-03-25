@@ -8,6 +8,7 @@ public:
     Core *core;
     Tablero(Core *core);
     void escojerJugadores();
+    void dibujaTablero();
 };
 
 #endif // TABLERO_H

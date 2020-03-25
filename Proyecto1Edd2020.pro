@@ -17,7 +17,8 @@ SOURCES += main.cpp \
     cola.cpp \
     listadoble.cpp \
     listasimpleordenada.cpp \
-    tablero.cpp
+    tablero.cpp \
+    listajugadoreslinea.cpp
 
 HEADERS += \
     cabeceraVertical.h \
@@ -33,4 +34,5 @@ HEADERS += \
     cola.h \
     listadoble.h \
     listasimpleordenada.h \
-    tablero.h
+    tablero.h \
+    listajugadoreslinea.h

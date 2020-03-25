@@ -7,6 +7,7 @@
 #include "listasimpleordenada.h"
 #include "matriz.h"
 #include "listadoble.h"
+#include "listajugadoreslinea.h"
 
 class Core
 {
@@ -18,7 +19,7 @@ public:
     ArbolBinario *arbol;
     ListaSimpleOrdenada *scoreboard;
     Matriz *matriz;
-
+    ListaJugadoresLinea *onlinePlayers;
     Core();
     void llenarColaFichas();
     void crearMatriz(int size);
