@@ -1,16 +1,17 @@
 #include "matriz.h"
 
-Matriz::Matriz()
+Matriz::Matriz(int size)
 {
+    this->size=size;
     this->cabecerasHorizontal=new CabeceraHorizontal();
     this->cabeceravertical=new CabeceraVertica();
 
 }
 
-void Matriz::insertar(std::string dia, int x, std::string hora, int y, std::string actividad){
+void Matriz::insertar(std::string dia, int x, std::string hora, int y, std::string actividad,std::string tipo){
     NodoH *C=this->cabecerasHorizontal->buscar(dia);
     Nodo *F=this->cabeceravertical->buscar(hora);
-    NodoMatriz *n=new NodoMatriz(actividad,x,y);
+    NodoMatriz *n=new NodoMatriz(actividad,x,y,tipo);
 
     if(F==NULL && C==NULL){
         C=this->cabecerasHorizontal->insertarEn(dia,x);
@@ -61,23 +62,30 @@ void Matriz::imprimir(){
         filematriz<<temph->Gnombre+"[label=\""+temph->dato+"\"];\n";
         temph=temph->adelante;
     }
+    filematriz<<"\n";
     Nodo *tempv=this->cabeceravertical->primero;
     while (tempv!=NULL) {
         filematriz<<tempv->Gnombre+" [label=\""+tempv->dato+"\"];\n";
         tempv=tempv->abajo;
     }
-
+    filematriz<<"\n";
     temph=this->cabecerasHorizontal->primero;
     while (temph!=NULL){
         NodoMatriz *aux=temph->listavertica->primero;
         while (aux!=NULL) {
-            filematriz<<aux->Gnombre+"[label=\""+aux->dato+"\"];\n";
+            if(aux->tipo=="triple"){
+                filematriz<<aux->Gnombre+"[label=\""+aux->dato+"\" style=filled color=lightblue];\n";
+            }else if (aux->tipo=="doble") {
+                filematriz<<aux->Gnombre+"[label=\""+aux->dato+"\" style=filled color=lightgreen];\n";
+            } else {
+                filematriz<<aux->Gnombre+"[label=\""+aux->dato+"\"];\n";
+            }
             aux=aux->abajo;
         }
         temph=temph->adelante;
     }
-
-    tempv=this->cabeceravertical->primero;
+    filematriz<<"\n";
+    /*tempv=this->cabeceravertical->primero;
     while (tempv!=NULL) {
         NodoMatriz *aux=tempv->listahorizonta->primero;
         while (aux!=NULL) {
@@ -85,7 +93,7 @@ void Matriz::imprimir(){
             aux=aux->adelante;
         }
         tempv=tempv->abajo;
-    }
+    }*/
     //-------------------------Fin de los nodos cabecera y nodos matriz
 
     //-------------------------Enlaces entre Nodos cabecera y nodos matriz por igual
@@ -102,13 +110,10 @@ void Matriz::imprimir(){
         filematriz<<tempv->Gnombre+" -> "+tempv->abajo->Gnombre+" [ dir=both];\n";
         tempv=tempv->abajo;
     }
-
+    filematriz<<"\n";
     temph=this->cabecerasHorizontal->primero;
     while (temph!=NULL){
         NodoMatriz *aux=temph->listavertica->primero;
-        //if(aux->abajo==NULL){
-          //  filematriz<<temph->Gnombre+" -> "+aux->Gnombre+" [ dir=both];\n";
-        //}else{
             filematriz<<temph->Gnombre+" -> "+aux->Gnombre+" [ dir=both];\n";
             while (aux->abajo!=NULL) {
                 filematriz<<aux->Gnombre+" -> "+aux->abajo->Gnombre+" [ dir=both];\n";
@@ -118,13 +123,10 @@ void Matriz::imprimir(){
 
         temph=temph->adelante;
     }
-
+    filematriz<<"\n";
     tempv=this->cabeceravertical->primero;
     while (tempv!=NULL) {
         NodoMatriz *aux=tempv->listahorizonta->primero;
-        //if(aux->adelante==NULL){
-           // filematriz<<tempv->Gnombre+" -> "+aux->Gnombre+" [ dir=both];\n";
-            //}else{
             filematriz<<tempv->Gnombre+" -> "+aux->Gnombre+" [constraint=false, dir=both];\n";
             while (aux->adelante!=NULL) {
                 filematriz<<aux->Gnombre+" -> "+aux->adelante->Gnombre+" [ dir=both];\n";
@@ -134,6 +136,7 @@ void Matriz::imprimir(){
 
         tempv=tempv->abajo;
     }
+    filematriz<<"\n";
 //------------------------Fin enlaces de nodo cabecera y de mas
 
     temph=this->cabecerasHorizontal->primero;
@@ -143,7 +146,7 @@ void Matriz::imprimir(){
         temph=temph->adelante;
     }
     filematriz<<"}";
-
+    filematriz<<"\n";
     tempv=this->cabeceravertical->primero;
     while (tempv!=NULL) {
         filematriz<<"{rank= same;"+tempv->Gnombre+";";

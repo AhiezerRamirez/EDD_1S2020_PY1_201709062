@@ -6,7 +6,9 @@ Core::Core()
     this->Fichas=new Cola();
     this->arbol=new ArbolBinario();
     this->scoreboard=new ListaSimpleOrdenada();
-    this->matriz=new Matriz();
+    this->casillasEspeciales=new ListaSimple();
+    this->casDobles=new ListaDoble();
+    this->casTriples=new ListaDoble();
 }
 
 void Core::llenarColaFichas(){
@@ -47,4 +49,9 @@ void Core::llenarColaFichas(){
             this->Fichas->meterradom(temp->ficha->letra,temp->ficha->puntos,v2);
         }
     }
+}
+
+void Core::crearMatriz(int size){
+
+    this->matriz=new Matriz(size);
 }

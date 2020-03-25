@@ -2,49 +2,52 @@ digraph {
  rankdir = TB; 
  node [shape=rectangle, height=0.5, width=0.5]; 
  graph[ nodesep = 0.5];
-CH1[label="Lunes"];
-CH2[label="Martes"];
-CH4[label="Jueves"];
-CV6 [label="06:30"];
-CV10 [label="10:30"];
-CV11 [label="11:30"];
-CV14 [label="14:30"];
-CV15 [label="15:30"];
-nodo16[label="Ginecologo"];
-nodo211[label="Patologo"];
-nodo214[label="Cardiologo"];
-nodo215[label="Cardiologo"];
-nodo410[label="Patologo"];
-nodo414[label="Urologo"];
-nodo16[label="Ginecologo"];
-nodo410[label="Patologo"];
-nodo211[label="Patologo"];
-nodo214[label="Cardiologo"];
-nodo414[label="Urologo"];
-nodo215[label="Cardiologo"];
+CH1[label="1"];
+CH2[label="2"];
+CH3[label="3"];
+CH4[label="4"];
+
+CV5 [label="5"];
+CV6 [label="6"];
+CV7 [label="7"];
+CV8 [label="8"];
+
+nodo18[label="C"];
+nodo25[label="H" style=filled color=lightblue];
+nodo26[label="O"];
+nodo27[label="L"];
+nodo28[label="A" style=filled color=lightgreen];
+nodo38[label="S"];
+nodo48[label="A"];
+
 root -> CH1[ dir=both];
 CH1 -> CH2[ dir=both];
-CH2 -> CH4[ dir=both];
-root -> CV6[ dir=both];
-CV6 -> CV10 [ dir=both];
-CV10 -> CV11 [ dir=both];
-CV11 -> CV14 [ dir=both];
-CV14 -> CV15 [ dir=both];
-CH1 -> nodo16 [ dir=both];
-CH2 -> nodo211 [ dir=both];
-nodo211 -> nodo214 [ dir=both];
-nodo214 -> nodo215 [ dir=both];
-CH4 -> nodo410 [ dir=both];
-nodo410 -> nodo414 [ dir=both];
-CV6 -> nodo16 [constraint=false, dir=both];
-CV10 -> nodo410 [constraint=false, dir=both];
-CV11 -> nodo211 [constraint=false, dir=both];
-CV14 -> nodo214 [constraint=false, dir=both];
-nodo214 -> nodo414 [ dir=both];
-CV15 -> nodo215 [constraint=false, dir=both];
-{ rank=same;root;CH1 ;CH2 ;CH4 ;}{rank= same;CV6;nodo16;}
-{rank= same;CV10;nodo410;}
-{rank= same;CV11;nodo211;}
-{rank= same;CV14;nodo214;nodo414;}
-{rank= same;CV15;nodo215;}
+CH2 -> CH3[ dir=both];
+CH3 -> CH4[ dir=both];
+root -> CV5[ dir=both];
+CV5 -> CV6 [ dir=both];
+CV6 -> CV7 [ dir=both];
+CV7 -> CV8 [ dir=both];
+
+CH1 -> nodo18 [ dir=both];
+CH2 -> nodo25 [ dir=both];
+nodo25 -> nodo26 [ dir=both];
+nodo26 -> nodo27 [ dir=both];
+nodo27 -> nodo28 [ dir=both];
+CH3 -> nodo38 [ dir=both];
+CH4 -> nodo48 [ dir=both];
+
+CV5 -> nodo25 [constraint=false, dir=both];
+CV6 -> nodo26 [constraint=false, dir=both];
+CV7 -> nodo27 [constraint=false, dir=both];
+CV8 -> nodo18 [constraint=false, dir=both];
+nodo18 -> nodo28 [ dir=both];
+nodo28 -> nodo38 [ dir=both];
+nodo38 -> nodo48 [ dir=both];
+
+{ rank=same;root;CH1 ;CH2 ;CH3 ;CH4 ;}
+{rank= same;CV5;nodo25;}
+{rank= same;CV6;nodo26;}
+{rank= same;CV7;nodo27;}
+{rank= same;CV8;nodo18;nodo28;nodo38;nodo48;}
 }

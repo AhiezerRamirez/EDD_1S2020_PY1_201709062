@@ -3,16 +3,43 @@
 #include "core.h"
 #include "matriz.h"
 #include "arbolbinario.h"
+#include "tablero.h"
 
 using namespace std;
 using json = nlohmann::json;
 
 void leerJson(Core *cor);
+void ingresarJugadores(Core *cor);
+void insertarjugadores2(Core *cor){
+
+        std::cout<<"Ingresar nombre del usuario"<<std::endl;
+        string nombres[]={"Mario","Silvia","Abraham","Nelson","Rebeca"};
+        bool breaker;
+        for(string nombre:nombres){
+            breaker=cor->arbol->insertar(nombre);
+        }
+
+        if(breaker==true)
+            std::cout<<"todo bien chilero"<<endl;
+        else
+        cout<<"Intene otra vez"<<endl;
+
+}
 
 int main()
 {
 
     Core *core=new Core();
+    Tablero *tablero=new Tablero(core);
+    /*core->crearMatriz(15);
+    core->matriz->insertar("2",2,"5",5,"H","triple");
+    core->matriz->insertar("2",2,"6",6,"O","normal");
+    core->matriz->insertar("2",2,"7",7,"L","normal");
+    core->matriz->insertar("2",2,"8",8,"A","doble");
+    core->matriz->insertar("1",1,"8",8,"C","normal");
+    core->matriz->insertar("3",3,"8",8,"S","normal");
+    core->matriz->insertar("4",4,"8",8,"A","normal");
+    core->matriz->imprimir();
     //core->llenarColaFichas();
     //core->Fichas->imprimir();
     core->arbol->insertar("Rudy");
@@ -23,8 +50,8 @@ int main()
     //core->arbol->graficar();
     core->arbol->preorder();
     core->arbol->inorder();
-    core->arbol->postorder();
-   /* while (true) {
+    core->arbol->postorder();*/
+    while (true) {
         std::cout<<"\n\n";
         std::cout<<"-----------------------------------------"<<std::endl;
         std::cout<<"        1)Lectura de Archivo             "<<std::endl;
@@ -39,6 +66,14 @@ int main()
         switch (opcion) {
         case 1:
             leerJson(core);
+            core->llenarColaFichas();
+            break;
+        case 2:
+            insertarjugadores2(core);
+            //ingresarJugadores(core);
+            break;
+        case 3:
+            tablero->imprimirTablero();
             break;
         case 5:
             exit(EXIT_SUCCESS);
@@ -48,7 +83,7 @@ int main()
             break;
         }
     }
-    Matriz matrix;
+    /*Matriz matrix;
     matrix.insertar("Martes",2,"14:30",14,"Cardiologo");
     matrix.insertar("Jueves",4,"10:30",10,"Patologo");
     matrix.insertar("Viernes",5,"20:30",20,"Oftafmologo");
@@ -85,22 +120,49 @@ int main()
     cout << "Hello World!" << endl;
     return 0;
 }
+void ingresarJugadores(Core *cor){
+    while (true) {
+        std::cout<<"Ingresar nombre del usuario"<<std::endl;
+        string nombre;
+        cin>>nombre;
+        bool breaker=cor->arbol->insertar(nombre);
+        if(breaker==true)
+            break;
+        else
+        cout<<"Intene otra vez"<<endl;
+    }
+}
 
 void leerJson(Core *cor){
     while (true) {
         std::cout<<"Por favor, ingrese la ruta de ubicacion"<<std::endl;
         std::cout<<"de su archivo de configuarcion"<<std::endl;
-        string ruta;
-        std::cin>>ruta;
-        std::ifstream i(ruta);
+        //string ruta;
+        //std::cin>>ruta;
+        std::ifstream i("/home/ahiezer/Proyecto1Edd2020/example.json");
         if(i.is_open()){
             json j3;
             i >> j3;
             for(unsigned int x = 0; x < j3.at("diccionario").size(); x++)
                 {
                     cor->diccionario->insertar(j3.at("diccionario")[x].at("palabra"));
-                    cout << "Palabra: " << j3.at("diccionario")[x].at("palabra") << endl;
+                    //cout << "Palabra: " << j3.at("diccionario")[x].at("palabra") << endl;
                 }
+            cor->crearMatriz(j3.at("dimension").get<int>());
+            //std::cout<<j3.at("dimension").get<int>()<<std::endl;
+
+            for(unsigned int x = 0; x < j3.at("casillas").at("dobles").size(); x++){
+                //cout << "Casilla Doble: [" << j3.at("casillas").at("dobles")[x].at("x") << "," << j3.at("casillas").at("dobles")[x].at("y") << "]" << endl;
+                cor->casillasEspeciales->insertar("doble",j3.at("casillas").at("dobles")[x].at("x") , j3.at("casillas").at("dobles")[x].at("y") );
+                cor->casDobles->insertar(to_string(j3.at("casillas").at("dobles")[x].at("x"))+to_string(j3.at("casillas").at("dobles")[x].at("y")),1);
+            }
+
+            for(unsigned int x = 0; x < j3.at("casillas").at("triples").size(); x++){
+                //cout << "Casilla triples: [" << j3.at("casillas").at("triples")[x].at("x") << "," << j3.at("casillas").at("triples")[x].at("y") << "]" << endl;
+                cor->casillasEspeciales->insertar("doble",j3.at("casillas").at("triples")[x].at("x") , j3.at("casillas").at("triples")[x].at("y") );
+                cor->casDobles->insertar(to_string(j3.at("casillas").at("triples")[x].at("x"))+to_string(j3.at("casillas").at("triples")[x].at("y")),1);
+            }
+
             std::cout<<"Configuracion acceptada.\n"<<std::endl;
 
             break;

@@ -5,14 +5,14 @@
 class NodoMatriz
 {
 public:
-    std::string dato;
+    std::string dato,tipo;
     std::string Gnombre;
     int x,y;
     NodoMatriz *arriba;
     NodoMatriz *abajo;
     NodoMatriz *adelante;
     NodoMatriz *atras;
-    NodoMatriz(std::string dato,int x ,int y);
+    NodoMatriz(std::string dato,int x ,int y,std::string);
 };
 
 #endif // NODOMATRIZ_H

@@ -8,13 +8,16 @@ ArbolBinario::ArbolBinario()
     this->root=NULL;
 }
 
-void ArbolBinario::insertar(std::string data){
-    privadoInsertar(data,this->root);
+bool ArbolBinario::insertar(std::string data){
+    return privadoInsertar(data,this->root);
 }
 
-void ArbolBinario::privadoInsertar(std::string data, NodoArbol *&raiz){
-    if(raiz == NULL)
-    raiz= new NodoArbol(data);
+bool ArbolBinario::privadoInsertar(std::string data, NodoArbol *&raiz){
+    if(raiz == NULL){
+        raiz= new NodoArbol(data);
+        std::cout<<"Usuario ingresado exitosamente"<<std::endl;
+        return true;
+    }
     else if (data.compare(raiz->dato) < 0) {
         if(raiz->izq !=NULL)
             privadoInsertar(data,raiz->izq);
@@ -28,6 +31,7 @@ void ArbolBinario::privadoInsertar(std::string data, NodoArbol *&raiz){
             raiz->der=new NodoArbol(data);
     }else {
         std::cout<<"El usuario ya existe"<<std::endl;
+        return false;
     }
 
 }
@@ -155,6 +159,18 @@ void ArbolBinario::privadoPostorder(NodoArbol *raiz,Cola *aux){
     privadoPostorder(raiz->izq,aux);
     privadoPostorder(raiz->der,aux);
     aux->encolar(raiz->dato,1);
+}
+
+NodoArbol *ArbolBinario::getPrivdo(NodoArbol *raiz, std::string nombre){
+    if(raiz==NULL || raiz->dato==nombre)
+        return raiz;
+    if(nombre.compare(raiz->dato) > 0)
+        return getPrivdo(raiz->der,nombre);
+    return getPrivdo(raiz->izq,nombre);
+}
+
+NodoArbol *ArbolBinario::get(std::string nombre){
+    return getPrivdo(this->root,nombre);
 }
 
 void ArbolBinario::marcarNUL(std::string key, int nullcount, FILE *stream){

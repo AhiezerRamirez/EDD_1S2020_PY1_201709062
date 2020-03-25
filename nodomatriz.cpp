@@ -1,6 +1,6 @@
 #include "nodomatriz.h"
 
-NodoMatriz::NodoMatriz(std::string dato,int x ,int y)
+NodoMatriz::NodoMatriz(std::string dato,int x ,int y,std::string tipo)
 {
     this->dato=dato;
     this->x=x;
@@ -10,5 +10,5 @@ NodoMatriz::NodoMatriz(std::string dato,int x ,int y)
     this->adelante=NULL;
     this->atras=NULL;
     this->Gnombre="nodo"+std::to_string(x)+std::to_string(y);
-
+    this->tipo=tipo;
 }
