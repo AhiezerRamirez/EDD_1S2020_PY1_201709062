@@ -23,8 +23,9 @@ public:
     NodoFicha *primero, *ultimo;
     ListaDoble();
     void insertar(std::string letra, int puntos);
-    NodoFicha* borrar(int pos);
+    NodoFicha* getFichas(int pos);
     std::string toString();
+    std::string mostrarFichas();
     void graficar(std::string usuario);
 };
 

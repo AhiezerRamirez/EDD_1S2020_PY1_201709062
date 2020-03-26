@@ -1,4 +1,5 @@
 #include "matriz.h"
+#include <iostream>
 
 Matriz::Matriz(int size)
 {
@@ -160,4 +161,37 @@ void Matriz::imprimir(){
     }
     filematriz<<"}";
     filematriz.close();
+}
+
+std::string Matriz::mostrarMatriz(){
+    std::string auxmatriz[this->size][this->size];
+    NodoH *temp=this->cabecerasHorizontal->primero;
+    while (temp!=NULL) {
+        auxmatriz[temp->x][0]=temp->dato;
+        NodoMatriz *aux=temp->listavertica->primero;
+        while (aux!=NULL) {
+            auxmatriz[aux->x][aux->y]=aux->dato;
+            aux=aux->abajo;
+        }
+        temp=temp->adelante;
+    }
+    Nodo *auxtemp=this->cabeceravertical->primero;
+    while (auxtemp!=NULL) {
+        auxmatriz[0][auxtemp->y]=auxtemp->dato;
+        auxtemp=auxtemp->abajo;
+    }
+
+    std::string cadena="";
+    for (int var = 0; var < this->size; ++var) {
+        for (int j = 0; j < this->size; ++j) {
+            if(auxmatriz[j][var]!=""){
+                cadena+=auxmatriz[j][var];
+            }
+            else{
+                cadena+=" ";
+            }
+        }
+        cadena+="\n";
+    }
+    return cadena;
 }

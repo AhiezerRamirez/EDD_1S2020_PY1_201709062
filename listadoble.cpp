@@ -23,7 +23,7 @@ void ListaDoble::insertar(std::string letra, int puntos){
     }
     this->size++;
 }
-NodoFicha* ListaDoble::borrar(int pos){
+NodoFicha* ListaDoble::getFichas(int pos){
     if(this->primero==NULL){
         return NULL;
     }else if(primero->siguiente==NULL){
@@ -59,6 +59,18 @@ NodoFicha* ListaDoble::borrar(int pos){
             return cur;
         }
     }
+}
+
+std::string ListaDoble::mostrarFichas(){
+    std::string cadena="Fichas Disponibles:";
+    NodoFicha *temp=this->primero;
+    int contador=1;
+    while (temp!=NULL) {
+        cadena+=std::to_string(contador)+")"+temp->letra+" ";
+        temp=temp->siguiente;
+        contador++;
+    }
+    return cadena;
 }
 
 std::string ListaDoble::toString(){

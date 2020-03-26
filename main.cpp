@@ -31,15 +31,15 @@ int main()
 
     Core *core=new Core();
     Tablero *tablero=new Tablero(core);
-    /*core->crearMatriz(15);
-    core->matriz->insertar("2",2,"5",5,"H","triple");
+    core->crearMatriz(15);
+    /*core->matriz->insertar("2",2,"5",5,"H","triple");
     core->matriz->insertar("2",2,"6",6,"O","normal");
     core->matriz->insertar("2",2,"7",7,"L","normal");
     core->matriz->insertar("2",2,"8",8,"A","doble");
     core->matriz->insertar("1",1,"8",8,"C","normal");
     core->matriz->insertar("3",3,"8",8,"S","normal");
     core->matriz->insertar("4",4,"8",8,"A","normal");
-    core->matriz->imprimir();
+    /*core->matriz->imprimir();
     //core->llenarColaFichas();
     //core->Fichas->imprimir();
     core->arbol->insertar("Rudy");

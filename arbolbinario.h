@@ -11,6 +11,7 @@ class NodoArbol
 public:
     std::string dato;
     NodoArbol *izq,*der;
+    int puntos;
     ListaSimpleOrdenada *punteo;
     ListaDoble *fichas;
     NodoArbol(std::string data) {
@@ -19,6 +20,7 @@ public:
         this->der=NULL;
         this->punteo=new ListaSimpleOrdenada();
         this->fichas=new ListaDoble();
+        this->puntos=0;
     }
 };
 class ArbolBinario
