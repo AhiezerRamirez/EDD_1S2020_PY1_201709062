@@ -22,7 +22,8 @@ NodoListaSimple* ListaSimple::buscar(int x , int y){
             return aux;
         aux=aux->siguiente;
     }
-    return NULL;
+    NodoListaSimple *temp;
+    return temp=new NodoListaSimple("normal",0,0);
 }
 
 void ListaSimple::toString(){

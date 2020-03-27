@@ -195,3 +195,20 @@ std::string Matriz::mostrarMatriz(){
     }
     return cadena;
 }
+
+std::string Matriz::buscar(int x, int y){
+    Nodo *vtemp=this->cabeceravertical->primero;
+    while (vtemp!=NULL) {
+        if(vtemp->y==y){
+            NodoMatriz *aux=vtemp->listahorizonta->primero;
+            while (aux!=NULL) {
+                if(aux->x==x&&aux->y==y){
+                    return aux->dato;
+                    aux=aux->adelante;
+                }
+            }
+        }
+        vtemp=vtemp->abajo;
+    }
+    return "";
+}

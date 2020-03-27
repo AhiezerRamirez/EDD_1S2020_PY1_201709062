@@ -160,8 +160,8 @@ void leerJson(Core *cor){
 
             for(unsigned int x = 0; x < j3.at("casillas").at("triples").size(); x++){
                 //cout << "Casilla triples: [" << j3.at("casillas").at("triples")[x].at("x") << "," << j3.at("casillas").at("triples")[x].at("y") << "]" << endl;
-                cor->casillasEspeciales->insertar("doble",j3.at("casillas").at("triples")[x].at("x") , j3.at("casillas").at("triples")[x].at("y") );
-                cor->casDobles->insertar(to_string(j3.at("casillas").at("triples")[x].at("x"))+to_string(j3.at("casillas").at("triples")[x].at("y")),1);
+                cor->casillasEspeciales->insertar("triple",j3.at("casillas").at("triples")[x].at("x") , j3.at("casillas").at("triples")[x].at("y") );
+                cor->casTriples->insertar(to_string(j3.at("casillas").at("triples")[x].at("x"))+to_string(j3.at("casillas").at("triples")[x].at("y")),1);
             }
 
             std::cout<<"Configuracion acceptada.\n"<<std::endl;

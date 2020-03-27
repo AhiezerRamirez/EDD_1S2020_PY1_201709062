@@ -21,6 +21,7 @@ public:
     void imprimir();
     void borrar(std::string dia,int x,std::string hora, int y);
     std::string mostrarMatriz();
+    std::string buscar(int x, int y);
 };
 
 #endif // MATRIZ_H

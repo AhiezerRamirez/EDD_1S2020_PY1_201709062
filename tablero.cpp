@@ -63,22 +63,25 @@ void Tablero::dibujaTablero(){
         std::cout<<"        Turno de: "+actualJugador->jugador->dato+"\n"<<std::endl;
         std::cout<<core->matriz->mostrarMatriz()<<std::endl;
         std::cout<<actualJugador->jugador->dato+" ingrese el numero de letras a utilizar ->";
-        std::vector<int> entradas;
+        std::vector<std::vector<int>> entradas;
         listaJugadas *listJ=new listaJugadas();
         std::string numeroLetras;
         std::cin>>numeroLetras;
         std::cout<<"Ingrese La posicion de su letra, posicion x y posicion y respectivamente."<<std::endl;
         std::cout<<"Divida cada dato con un \";\""<<std::endl;
-        for (int i = 0; i <= stoi(numeroLetras); ++i) {
+        for (int i = 1; i <= stoi(numeroLetras); ++i) {
             std::string letras;
             std::cin>>letras;
-            entradas=separar(letras);
+            entradas.push_back(separar(letras));
         }
-        bool flageSize=verificarIndices(entradas,listJ);
-        if(flageSize){
+
+        if(verificarIndices(entradas,listJ)){
             std::cout<<"Orientacion de la palabra 0: para horizontal 1: vertical"<<std::endl;
             std::string orientacion;
             std::cin>>orientacion;
+            colocarLetras(listJ,stoi(orientacion));
+        }else{
+            std::cout<<"Alguna posicion dada es mayor que el tamano de la matriz"<<std::endl;
         }
     }
 }
@@ -92,17 +95,42 @@ std::vector<int> Tablero::separar(std::string letras){
     }
     return v;
 }
-bool Tablero::verificarIndices(std::vector<int> v,listaJugadas *listJ){
+bool Tablero::verificarIndices(std::vector<std::vector<int>> v,listaJugadas *listJ){
 
-    listJ->ingresar(v.at(0),v.at(1),v.at(2));
+    for (unsigned int var = 0; var < v.size(); ++var) {
+        std::vector<int> v1=v.at(var);
+        for (unsigned int x = 0; x < v1.size(); ++x) {
+            listJ->ingresar(v1.at(0),v1.at(1),v1.at(2));
+        }
+    }
+
     nodoJugada *temp=listJ->primero;
     bool flage=true;
     while (temp!=NULL) {
         if(temp->x>core->matriz->size || temp->y > core->matriz->size)
             flage=false;
+        temp=temp->siguiente;
     }
     return flage;
 }
 void Tablero::colocarLetras(listaJugadas *v,int orientacion){
-    //Hay que arreglar la lista ordenada;
+
+    nodoJugada *temp=v->primero;
+    while (temp!=NULL) {
+        NodoListaSimple *aux=core->casillasEspeciales->buscar(temp->x,temp->y);
+        core->matriz->insertar(std::to_string(temp->x),temp->x,std::to_string(temp->y),temp->y,temp->letra,aux->tipo);
+        temp=temp->siguiente;
+    }
+
+    if(orientacion=0){
+        int inicial=v->findLowestX();
+        int fin=v->findHightestX();
+        std::string validacion="";
+        for (int var = inicial; var <= fin; ++var) {
+            validacion+=core->matriz->buscar(var,v->primero->y);
+        }
+
+        std::cout<<validacion<<std::endl;
+    }
+    //
 }
