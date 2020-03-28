@@ -7,7 +7,7 @@ class nodoJugada
 {
 public:
     std::string letra;
-    int x,y,pos;
+    int x,y,pos,puntos;
     nodoJugada *siguiente;
     nodoJugada(int pos,int x, int y) {
         this->pos=pos;
@@ -19,17 +19,33 @@ public:
 class listaJugadas
 {
 public:
-    nodoJugada *primero;
-    listaJugadas() {primero=NULL;}
+    nodoJugada *primero,*ultimo;
+    listaJugadas() {primero=ultimo=NULL;}
     void ingresar(int pos, int x,int y){
         nodoJugada *n=new nodoJugada(pos,x,y);
         if(primero==NULL){
             primero=n;
-        }
+            ultimo=n;
+        }else if(pos==primero->pos||pos==ultimo->pos);
         else{
             //Hay que arreglar para que sea ordenada
-            n->siguiente=primero;
-            primero=n;
+            if(pos<ultimo->pos){
+                ultimo->siguiente=n;
+                ultimo=n;
+            }else if(pos>primero->pos){
+                nodoJugada *temp=primero;
+                primero=n;
+                primero->siguiente=temp;
+            }else{
+                nodoJugada *aux=primero;
+                nodoJugada *ant;
+                while (aux->pos>pos) {
+                    ant=aux;
+                    aux=aux->siguiente;
+                }
+                ant->siguiente=n;
+                n->siguiente=aux;
+            }
         }
     }
     int findLowestX(){
@@ -76,8 +92,16 @@ public:
         }
         return hightest;
     }
-    void ordenar(){}
-    void swapped(){}//Falta ordenar la lista
+
+    std::string mostrar(){
+        std::string cadena="";
+        nodoJugada *temp=primero;
+        while (temp!=NULL) {
+            cadena+=std::to_string(temp->pos);
+            temp=temp->siguiente;
+        }
+        return cadena;
+    }
 };
 
 class Tablero
@@ -87,7 +111,7 @@ public:
     Tablero(Core *core);
     void escojerJugadores();
     void dibujaTablero();
-    void colocarLetras(listaJugadas *v,int orientacion);
+    bool colocarLetras(listaJugadas *v,int orientacion,NodoJugadoresLinea *actualPlayer);
     bool verificarIndices(std::vector<std::vector<int>> v,listaJugadas *listJ);
     std::vector<int> separar(std::string letras);
 };

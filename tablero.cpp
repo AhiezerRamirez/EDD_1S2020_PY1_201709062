@@ -38,13 +38,13 @@ void Tablero::escojerJugadores(){
 
             }
             core->onlinePlayers->ingrear(jugador2);
-            core->matriz->insertar("4",4,"5",5,"H","triple");
-            core->matriz->insertar("4",4,"6",6,"O","normal");
-            core->matriz->insertar("4",4,"7",7,"L","normal");
-            core->matriz->insertar("4",4,"8",8,"A","doble");
-            core->matriz->insertar("3",3,"8",8,"C","normal");
-            core->matriz->insertar("5",5,"8",8,"S","normal");
-            core->matriz->insertar("6",6,"8",8,"A","normal");
+            core->matriz->insertar("4",4,"5",5,"H","triple",2);
+            core->matriz->insertar("4",4,"6",6,"O","normal",3);
+            core->matriz->insertar("4",4,"7",7,"L","normal",9);
+            core->matriz->insertar("4",4,"8",8,"A","doble",2);
+            core->matriz->insertar("3",3,"8",8,"C","normal",1);
+            core->matriz->insertar("5",5,"8",8,"S","normal",8);
+            core->matriz->insertar("6",6,"8",8,"A","normal",2);
             //break;
         }else{
             std::cout<<"Jugadores incorrectos"<<std::endl;
@@ -57,7 +57,7 @@ void Tablero::dibujaTablero(){
     NodoJugadoresLinea *actualJugador=this->core->onlinePlayers->inicio;
     while (true) {
         std::cout<<"**********************************************************"<<std::endl;
-        std::cout<<"*  -Finalizar ESC  -cambio F1		-tablero F3  *"<<std::endl;
+        std::cout<<"*  -Finalizar ESC         -cambio F1		-tablero F3  *"<<std::endl;
         std::cout<<"**********************************************************"<<std::endl;
         std::cout<<core->onlinePlayers->mostrarJugadores()<<std::endl;
         std::cout<<"        Turno de: "+actualJugador->jugador->dato+"\n"<<std::endl;
@@ -79,10 +79,17 @@ void Tablero::dibujaTablero(){
             std::cout<<"Orientacion de la palabra 0: para horizontal 1: vertical"<<std::endl;
             std::string orientacion;
             std::cin>>orientacion;
-            colocarLetras(listJ,stoi(orientacion));
+            if(colocarLetras(listJ,stoi(orientacion),actualJugador)){
+                std::cout<<"Jugada acceptada. \nBien hecho"<<actualJugador->jugador->dato<<" tu puntedo ahora es: "<<actualJugador->jugador->puntos<<std::endl;
+            }else {
+                std::cout<<"La palabra que acabas de ingresar, no existe en el diccionario"<<std::endl;
+                std::cout<<"        ***Pierde su turno***"<<std::endl;
+            }
         }else{
             std::cout<<"Alguna posicion dada es mayor que el tamano de la matriz"<<std::endl;
+            std::cout<<"        ***Pierde su turno***"<<std::endl;
         }
+        actualJugador=actualJugador->siguiente;
     }
 }
 std::vector<int> Tablero::separar(std::string letras){
@@ -99,9 +106,8 @@ bool Tablero::verificarIndices(std::vector<std::vector<int>> v,listaJugadas *lis
 
     for (unsigned int var = 0; var < v.size(); ++var) {
         std::vector<int> v1=v.at(var);
-        for (unsigned int x = 0; x < v1.size(); ++x) {
-            listJ->ingresar(v1.at(0),v1.at(1),v1.at(2));
-        }
+        listJ->ingresar(v1.at(0),v1.at(1),v1.at(2));
+
     }
 
     nodoJugada *temp=listJ->primero;
@@ -113,24 +119,65 @@ bool Tablero::verificarIndices(std::vector<std::vector<int>> v,listaJugadas *lis
     }
     return flage;
 }
-void Tablero::colocarLetras(listaJugadas *v,int orientacion){
-
+bool Tablero::colocarLetras(listaJugadas *v,int orientacion,NodoJugadoresLinea *actualPlayer){
+    //std::cout<<v->mostrar()<<std::endl;
     nodoJugada *temp=v->primero;
     while (temp!=NULL) {
         NodoListaSimple *aux=core->casillasEspeciales->buscar(temp->x,temp->y);
-        core->matriz->insertar(std::to_string(temp->x),temp->x,std::to_string(temp->y),temp->y,temp->letra,aux->tipo);
+        NodoFicha *ficha=actualPlayer->jugador->fichas->getFichas(temp->pos);       //Puede cambiarse para que sea temp.letra o hacer un  nodoFicha
+        temp->letra=ficha->letra;
+        temp->puntos=ficha->puntos;
+        core->matriz->insertar(std::to_string(temp->x),temp->x,std::to_string(temp->y),temp->y,ficha->letra,aux->tipo,ficha->puntos);
         temp=temp->siguiente;
     }
 
-    if(orientacion=0){
+    if(orientacion==0){
         int inicial=v->findLowestX();
         int fin=v->findHightestX();
         std::string validacion="";
+        int punteo=0;
         for (int var = inicial; var <= fin; ++var) {
             validacion+=core->matriz->buscar(var,v->primero->y);
+            punteo+=core->matriz->sumar(var,v->primero->y);
         }
+        bool contiene=core->diccionario->contains(validacion);
+        if(contiene){
+            actualPlayer->jugador->puntos+=punteo;
+            return true;
+        }else{
+            nodoJugada *temp=v->primero;
+            while (temp!=NULL) {
+                core->matriz->borrar(std::to_string(temp->x),temp->x,std::to_string(temp->y),temp->y);
+                temp=temp->siguiente;
+            }
 
-        std::cout<<validacion<<std::endl;
+            return false;
+        }
+        //std::cout<<validacion<<" Esto es lo que se acaba de meter a la matrix Y este es el punteo"<<punteo<<std::endl;
+    }else if(orientacion==1){
+        int inicial=v->findLowestY();
+        int fin=v->findHightestY();
+        std::string validacion="";
+        int punteo=0;
+        for (int var = inicial; var < fin; ++var) {
+            validacion+=core->matriz->buscar(v->primero->x,var);
+            punteo+=core->matriz->sumar(v->primero->x,var);
+        }
+        bool contiene=core->diccionario->contains(validacion);
+        if(contiene){
+            actualPlayer->jugador->puntos+=punteo;
+            return true;
+        }else {
+            nodoJugada *temp=v->primero;
+            while (temp!=NULL) {
+                core->matriz->borrar(std::to_string(temp->x),temp->x,std::to_string(temp->y),temp->y);
+                temp=temp->siguiente;
+            }
+            return false;
+        }
+    }else {
+        std::cout<<"Orientacion no acceptada. \n        ***Pierde su turno***"<<std::endl;
+        return false;
     }
     //
 }

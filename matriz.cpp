@@ -9,10 +9,10 @@ Matriz::Matriz(int size)
 
 }
 
-void Matriz::insertar(std::string dia, int x, std::string hora, int y, std::string actividad,std::string tipo){
+void Matriz::insertar(std::string dia, int x, std::string hora, int y, std::string actividad,std::string tipo,int puntos){
     NodoH *C=this->cabecerasHorizontal->buscar(dia);
     Nodo *F=this->cabeceravertical->buscar(hora);
-    NodoMatriz *n=new NodoMatriz(actividad,x,y,tipo);
+    NodoMatriz *n=new NodoMatriz(actividad,x,y,tipo,puntos);
 
     if(F==NULL && C==NULL){
         C=this->cabecerasHorizontal->insertarEn(dia,x);
@@ -164,20 +164,20 @@ void Matriz::imprimir(){
 }
 
 std::string Matriz::mostrarMatriz(){
-    std::string auxmatriz[this->size][this->size];
+    std::string auxmatriz[this->size+1][this->size+1];
     NodoH *temp=this->cabecerasHorizontal->primero;
     while (temp!=NULL) {
-        auxmatriz[temp->x][0]=temp->dato;
+        auxmatriz[temp->x+1][0]=temp->dato;
         NodoMatriz *aux=temp->listavertica->primero;
         while (aux!=NULL) {
-            auxmatriz[aux->x][aux->y]=aux->dato;
+            auxmatriz[aux->x+1][aux->y+1]=aux->dato;
             aux=aux->abajo;
         }
         temp=temp->adelante;
     }
     Nodo *auxtemp=this->cabeceravertical->primero;
     while (auxtemp!=NULL) {
-        auxmatriz[0][auxtemp->y]=auxtemp->dato;
+        auxmatriz[0][auxtemp->y+1]=auxtemp->dato;
         auxtemp=auxtemp->abajo;
     }
 
@@ -204,11 +204,51 @@ std::string Matriz::buscar(int x, int y){
             while (aux!=NULL) {
                 if(aux->x==x&&aux->y==y){
                     return aux->dato;
-                    aux=aux->adelante;
                 }
+                aux=aux->adelante;
             }
         }
         vtemp=vtemp->abajo;
     }
     return "";
+}
+
+int Matriz::sumar(int x, int y){
+    Nodo *vtemp=this->cabeceravertical->primero;
+    while (vtemp!=NULL) {
+        if(vtemp->y==y){
+            NodoMatriz *aux=vtemp->listahorizonta->primero;
+            while (aux!=NULL) {
+                if(aux->x==x&&aux->y==y){
+                    if(aux->tipo=="triple"){
+                        return (3*aux->puntos);
+                    }else if(aux->tipo=="doble"){
+                        return (2*aux->puntos);
+                    }else{
+                        return aux->puntos;
+                    }
+                }
+                aux=aux->adelante;
+            }
+        }
+        vtemp=vtemp->abajo;
+    }
+    return 0;
+}
+
+bool Matriz::existe(int x, int y){
+    Nodo *vtemp=this->cabeceravertical->primero;
+    while (vtemp!=NULL) {
+        if(vtemp->y==y){
+            NodoMatriz *aux=vtemp->listahorizonta->primero;
+            while (aux!=NULL) {
+                if(aux->x==x&&aux->y==y){
+                    return true;
+                }
+                aux=aux->adelante;
+            }
+        }
+        vtemp=vtemp->abajo;
+    }
+    return false;
 }

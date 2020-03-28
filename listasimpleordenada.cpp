@@ -11,15 +11,15 @@ ListaSimpleOrdenada::ListaSimpleOrdenada()
 void ListaSimpleOrdenada::insertar(std::string nombre, int punteo){
     NodoPunteo *n=new NodoPunteo(nombre,punteo);
     if(primero==NULL){
-        this->primero=NULL;
-        this->ultimo=NULL;
+        this->primero=n;
+        this->ultimo=n;
     }else if(punteo==ultimo->punteo || punteo == primero->punteo)
             ;
     else{
-        if(punteo < ultimo->punteo){
+        if(punteo > ultimo->punteo){
             ultimo->siguiente=n;
             ultimo=n;
-        }else if (punteo > primero->punteo) {
+        }else if (punteo < primero->punteo) {
             NodoPunteo *temp=primero;
             primero=n;
             n->siguiente=temp;

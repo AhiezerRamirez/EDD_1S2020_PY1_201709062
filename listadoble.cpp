@@ -23,6 +23,7 @@ void ListaDoble::insertar(std::string letra, int puntos){
     }
     this->size++;
 }
+
 NodoFicha* ListaDoble::getFichas(int pos){
     if(this->primero==NULL){
         return NULL;
@@ -50,7 +51,7 @@ NodoFicha* ListaDoble::getFichas(int pos){
             return temp;
         }else{
             NodoFicha *cur=primero;
-            for (int var = 0; var < pos; ++var) {
+            for (int var = 1; var < pos; ++var) {
                 cur=cur->siguiente;
             }
             cur->atras->siguiente=cur->siguiente;

@@ -49,3 +49,13 @@ void ListaDobleCircular::graficar(){
         std::this_thread::sleep_for(std::chrono::milliseconds(500));
         system("xdg-open /home/ahiezer/Proyecto1Edd2020/Diccionario.jpg");
 }
+
+bool ListaDobleCircular::contains(std::string buscar){
+    NodoCircular *aux=this->primero;
+    while (aux!=ultimo) {
+        if(aux->palabra==buscar)
+            return true;
+        aux=aux->siguiente;
+    }
+    return false;
+}

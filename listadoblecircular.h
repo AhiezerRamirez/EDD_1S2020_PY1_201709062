@@ -23,7 +23,7 @@ private:
 public:
     ListaDobleCircular();
     void insertar(std::string dato);
-    std::string buscar(std::string buscar);
+    bool contains(std::string buscar);
     std::string toString();
     void graficar();//falta graficar
 };
