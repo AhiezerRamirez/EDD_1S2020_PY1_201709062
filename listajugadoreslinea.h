@@ -19,6 +19,7 @@ public:
     ListaJugadoresLinea();
     void ingrear(NodoArbol *jugador);
     std::string mostrarJugadores();
+    void vaciar();
 };
 
 #endif // LISTAJUGADORESLINEA_H

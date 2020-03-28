@@ -114,6 +114,8 @@ public:
     bool colocarLetras(listaJugadas *v,int orientacion,NodoJugadoresLinea *actualPlayer);
     bool verificarIndices(std::vector<std::vector<int>> v,listaJugadas *listJ);
     std::vector<int> separar(std::string letras);
+    void cambiarFichas(NodoJugadoresLinea *jugador);
+    void mostrarReportes();
 };
 
 #endif // TABLERO_H

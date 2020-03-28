@@ -57,7 +57,7 @@ void Tablero::dibujaTablero(){
     NodoJugadoresLinea *actualJugador=this->core->onlinePlayers->inicio;
     while (true) {
         std::cout<<"**********************************************************"<<std::endl;
-        std::cout<<"*  -Finalizar ESC         -cambio F1		-tablero F3  *"<<std::endl;
+        std::cout<<"* -Finalizar: salir  -Cambio: cambiar -tablero reportes  *"<<std::endl;
         std::cout<<"**********************************************************"<<std::endl;
         std::cout<<core->onlinePlayers->mostrarJugadores()<<std::endl;
         std::cout<<"        Turno de: "+actualJugador->jugador->dato+"\n"<<std::endl;
@@ -67,29 +67,56 @@ void Tablero::dibujaTablero(){
         listaJugadas *listJ=new listaJugadas();
         std::string numeroLetras;
         std::cin>>numeroLetras;
-        std::cout<<"Ingrese La posicion de su letra, posicion x y posicion y respectivamente."<<std::endl;
-        std::cout<<"Divida cada dato con un \";\""<<std::endl;
-        for (int i = 1; i <= stoi(numeroLetras); ++i) {
-            std::string letras;
-            std::cin>>letras;
-            entradas.push_back(separar(letras));
-        }
+        if(numeroLetras.length()==1){
+            //const char*auxnumeroletra=numeroLetras.c_str();
+            if(isdigit(numeroLetras)){
+                std::cout<<"Ingrese La posicion de su letra, posicion x y posicion y respectivamente."<<std::endl;
+                std::cout<<"Divida cada dato con un \";\""<<std::endl;
+                for (int i = 1; i <= stoi(numeroLetras); ++i) {
+                    std::string letras;
+                    std::cin>>letras;
+                    entradas.push_back(separar(letras));
+                }
 
-        if(verificarIndices(entradas,listJ)){
-            std::cout<<"Orientacion de la palabra 0: para horizontal 1: vertical"<<std::endl;
-            std::string orientacion;
-            std::cin>>orientacion;
-            if(colocarLetras(listJ,stoi(orientacion),actualJugador)){
-                std::cout<<"Jugada acceptada. \nBien hecho"<<actualJugador->jugador->dato<<" tu puntedo ahora es: "<<actualJugador->jugador->puntos<<std::endl;
-            }else {
-                std::cout<<"La palabra que acabas de ingresar, no existe en el diccionario"<<std::endl;
+                if(verificarIndices(entradas,listJ)){
+                    std::cout<<"Orientacion de la palabra 0: para horizontal 1: vertical"<<std::endl;
+                    std::string orientacion;
+                    std::cin>>orientacion;
+                    if(colocarLetras(listJ,stoi(orientacion),actualJugador)){
+                        std::cout<<"Jugada acceptada. \nBien hecho"<<actualJugador->jugador->dato<<" tu puntedo ahora es: "<<actualJugador->jugador->puntos<<std::endl;
+                    }else {
+                        std::cout<<"La palabra que acabas de ingresar, no existe en el diccionario"<<std::endl;
+                        std::cout<<"        ***Pierde su turno***"<<std::endl;
+                    }
+                }else{
+                    std::cout<<"Alguna posicion dada es mayor que el tamano de la matriz"<<std::endl;
+                    std::cout<<"        ***Pierde su turno***"<<std::endl;
+                }
+            }else{
+                std::cout<<"Solamente se acceptan numeros"<<std::endl;
                 std::cout<<"        ***Pierde su turno***"<<std::endl;
             }
+            actualJugador=actualJugador->siguiente;
         }else{
-            std::cout<<"Alguna posicion dada es mayor que el tamano de la matriz"<<std::endl;
-            std::cout<<"        ***Pierde su turno***"<<std::endl;
+            if(numeroLetras=="salir"){
+                core->onlinePlayers->inicio->jugador->punteo->insertar(core->onlinePlayers->inicio->jugador->dato,core->onlinePlayers->inicio->jugador->puntos);
+                core->onlinePlayers->fin->jugador->punteo->insertar(core->onlinePlayers->fin->jugador->dato,core->onlinePlayers->fin->jugador->puntos);
+                std::cout<<core->onlinePlayers->inicio->jugador->dato<<" : "<<core->onlinePlayers->inicio->jugador->puntos<<std::endl;
+                std::cout<<core->onlinePlayers->fin->jugador->dato<<" : "<<core->onlinePlayers->fin->jugador->puntos<<std::endl;
+                core->onlinePlayers->vaciar();
+                std::string algo;
+                std::cin>algo>;
+                break;
+            }else if (numeroLetras=="cambiar") {
+                cambiarFichas(actualJugador);
+                actualJugador=actualJugador->siguiente;
+            }else if (numeroLetras=="reportes") {
+                mostrarReportes();
+            }else {
+            }
         }
-        actualJugador=actualJugador->siguiente;
+
+
     }
 }
 std::vector<int> Tablero::separar(std::string letras){
@@ -148,6 +175,7 @@ bool Tablero::colocarLetras(listaJugadas *v,int orientacion,NodoJugadoresLinea *
             nodoJugada *temp=v->primero;
             while (temp!=NULL) {
                 core->matriz->borrar(std::to_string(temp->x),temp->x,std::to_string(temp->y),temp->y);
+                actualPlayer->jugador->fichas->insertar(temp->letra,temp->puntos);
                 temp=temp->siguiente;
             }
 
@@ -170,6 +198,7 @@ bool Tablero::colocarLetras(listaJugadas *v,int orientacion,NodoJugadoresLinea *
         }else {
             nodoJugada *temp=v->primero;
             while (temp!=NULL) {
+                actualPlayer->jugador->fichas->insertar(temp->letra,temp->puntos);
                 core->matriz->borrar(std::to_string(temp->x),temp->x,std::to_string(temp->y),temp->y);
                 temp=temp->siguiente;
             }
@@ -180,4 +209,32 @@ bool Tablero::colocarLetras(listaJugadas *v,int orientacion,NodoJugadoresLinea *
         return false;
     }
     //
+}
+
+void Tablero::cambiarFichas(NodoJugadoresLinea *jugador){
+    while (true) {
+        std::cout<<"Ingrese el numero de fichas que va a cambiar"<<std::endl;
+        std::string cantfichas;
+        std::cin>>cantfichas;
+        int auxcantefichas=stoi(cantfichas);
+        if(auxcantefichas < 1 || auxcantefichas > jugador->fichas->size){
+            std::cout<<"Numero incorrecto, solo puede cambiar de una a "<<jugador->fichas->size<<std::endl;
+            std::cout<<"        ***Pierde su turno***"<<std::endl;
+        }else{
+            std::cout<<"Ingrese el (los) numero(s) de posicion de ficha(s) que va a cambiar"<<std::endl;
+            for (int var = 0; var < auxcantefichas; ++var) {
+                NodoFicha *auxficha=jugador->jugador->fichas->getFichas(var);
+                core->Fichas->encolar(auxficha->letra,auxficha->puntos);
+                std::cout<<"Fichas cambiadas con exito"<<std::endl;
+                break;
+            }
+        }
+    }
+}
+
+void Tablero::mostrarReportes(){
+    while (true) {
+        std::cout<<"1)Diccionario\n2)Fichas\n3)Arbol de Usuarios\n4)Preorden\n5)Inorden\n6)Postorden\n7)Punteo por Usuario\n8)Punteo General\n9)Tablero\n10)Ficha de jugadores\n"<<std::endl;
+        break;
+    }
 }

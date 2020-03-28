@@ -23,3 +23,8 @@ std::string ListaJugadoresLinea::mostrarJugadores(){
     return "Jugando:\n"+this->inicio->jugador->dato +": "+this->inicio->jugador->fichas->mostrarFichas()+"  punteo -> "+std::to_string(this->inicio->jugador->puntos)+"\n"
             +this->fin->jugador->dato+": "+this->fin->jugador->fichas->mostrarFichas()+"  punteo -> "+std::to_string(this->fin->jugador->puntos)+"\n";
 }
+
+void ListaJugadoresLinea::vaciar(){
+    this->inicio=NULL;
+    this->fin=NULL;
+}
