@@ -16,7 +16,7 @@ nodo308[label="C"];
 nodo405[label="H" style=filled color=lightblue];
 nodo406[label="O"];
 nodo407[label="L"];
-nodo408[label="A" style=filled color=lightgreen];
+nodo408[label="A" style=filled color=chartreuse];
 nodo508[label="S"];
 nodo608[label="A"];
 

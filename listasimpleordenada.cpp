@@ -36,10 +36,11 @@ void ListaSimpleOrdenada::insertar(std::string nombre, int punteo){
     }
 }
 
-std::string ListaSimpleOrdenada::toString(){
+std::string ListaSimpleOrdenada::toString(std::string nombre){
     NodoPunteo *temp=primero;
         std::string cadena;
         cadena="digraph G {node [shape = square]; \n graph [rankdir=LR]; \n";
+        cadena+="_diagram_info [shape=\"plaintext\", label=\""+nombre+"\", fontsize=13]";
         while (temp->siguiente!=NULL) {
             cadena+="\"["+std::to_string(temp->punteo)+"]\" ->";
             temp=temp->siguiente;
@@ -48,10 +49,10 @@ std::string ListaSimpleOrdenada::toString(){
         return cadena;
 }
 
-void ListaSimpleOrdenada::graficar(){
+void ListaSimpleOrdenada::graficar(std::string nombre){
     std::string texto,ruta;
-    ruta="/home/ahiezer/Proyecto1Edd2020/Punteos.dot";
-    texto=toString();
+    ruta="/home/ahiezer/Proyecto1Edd2020/"+nombre+"Punteos.dot";
+    texto=toString(nombre);
     std::ofstream fileCitas;
     fileCitas.open(ruta.c_str());
     fileCitas<<texto;

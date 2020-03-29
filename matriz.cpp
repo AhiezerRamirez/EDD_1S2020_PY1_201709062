@@ -1,5 +1,7 @@
 #include "matriz.h"
 #include <iostream>
+#include <chrono>
+#include <thread>
 
 Matriz::Matriz(int size)
 {
@@ -53,7 +55,7 @@ void Matriz::borrar(std::string dia,int x, std::string hora, int y){
 
 void Matriz::imprimir(){
     std::string ruta;
-    ruta="/home/ahiezer/Proyecto1Edd2020/matriz.txt";
+    ruta="/home/ahiezer/Proyecto1Edd2020/matriz.dot";
     std::ofstream filematriz;
     filematriz.open(ruta.c_str());
     filematriz<<"digraph { \n rankdir = TB; \n node [shape=rectangle, height=0.5, width=0.5]; \n graph[ nodesep = 0.5];\n";
@@ -77,7 +79,7 @@ void Matriz::imprimir(){
             if(aux->tipo=="triple"){
                 filematriz<<aux->Gnombre+"[label=\""+aux->dato+"\" style=filled color=lightblue];\n";
             }else if (aux->tipo=="doble") {
-                filematriz<<aux->Gnombre+"[label=\""+aux->dato+"\" style=filled color=lightgreen];\n";
+                filematriz<<aux->Gnombre+"[label=\""+aux->dato+"\" style=filled color=chartreuse];\n";
             } else {
                 filematriz<<aux->Gnombre+"[label=\""+aux->dato+"\"];\n";
             }
@@ -161,6 +163,9 @@ void Matriz::imprimir(){
     }
     filematriz<<"}";
     filematriz.close();
+    system("cd /home/ahiezer/Proyecto1Edd2020/ && dot matriz.dot -Tjpg -o matriz.jpg");
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    system("xdg-open /home/ahiezer/Proyecto1Edd2020/matriz.jpg");
 }
 
 std::string Matriz::mostrarMatriz(){

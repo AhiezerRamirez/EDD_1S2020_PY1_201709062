@@ -116,6 +116,7 @@ public:
     std::vector<int> separar(std::string letras);
     void cambiarFichas(NodoJugadoresLinea *jugador);
     void mostrarReportes();
+    void graficarPuntaje(std::string usario);
 };
 
 #endif // TABLERO_H

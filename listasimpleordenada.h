@@ -21,8 +21,8 @@ public:
     NodoPunteo *primero, *ultimo;
     ListaSimpleOrdenada();
     void insertar(std::string nombre, int punteo);
-    std::string toString();
-    void graficar();
+    std::string toString(std::string nombre);
+    void graficar(std::string nombre);
     std::string toString2();
     void graficar2();
 };

@@ -69,7 +69,7 @@ void Tablero::dibujaTablero(){
         std::cin>>numeroLetras;
         if(numeroLetras.length()==1){
             //const char*auxnumeroletra=numeroLetras.c_str();
-            if(isdigit(numeroLetras)){
+            if(isdigit(numeroLetras[0])){
                 std::cout<<"Ingrese La posicion de su letra, posicion x y posicion y respectivamente."<<std::endl;
                 std::cout<<"Divida cada dato con un \";\""<<std::endl;
                 for (int i = 1; i <= stoi(numeroLetras); ++i) {
@@ -103,9 +103,11 @@ void Tablero::dibujaTablero(){
                 core->onlinePlayers->fin->jugador->punteo->insertar(core->onlinePlayers->fin->jugador->dato,core->onlinePlayers->fin->jugador->puntos);
                 std::cout<<core->onlinePlayers->inicio->jugador->dato<<" : "<<core->onlinePlayers->inicio->jugador->puntos<<std::endl;
                 std::cout<<core->onlinePlayers->fin->jugador->dato<<" : "<<core->onlinePlayers->fin->jugador->puntos<<std::endl;
+                core->scoreboard->insertar(core->onlinePlayers->inicio->jugador->dato,core->onlinePlayers->inicio->jugador->puntos);
+                core->scoreboard->insertar(core->onlinePlayers->fin->jugador->dato,core->onlinePlayers->fin->jugador->puntos);
                 core->onlinePlayers->vaciar();
                 std::string algo;
-                std::cin>algo>;
+                std::cin>>algo;
                 break;
             }else if (numeroLetras=="cambiar") {
                 cambiarFichas(actualJugador);
@@ -217,8 +219,8 @@ void Tablero::cambiarFichas(NodoJugadoresLinea *jugador){
         std::string cantfichas;
         std::cin>>cantfichas;
         int auxcantefichas=stoi(cantfichas);
-        if(auxcantefichas < 1 || auxcantefichas > jugador->fichas->size){
-            std::cout<<"Numero incorrecto, solo puede cambiar de una a "<<jugador->fichas->size<<std::endl;
+        if(auxcantefichas < 1 || auxcantefichas > jugador->jugador->fichas->size){
+            std::cout<<"Numero incorrecto, solo puede cambiar de una a "<<jugador->jugador->fichas->size<<std::endl;
             std::cout<<"        ***Pierde su turno***"<<std::endl;
         }else{
             std::cout<<"Ingrese el (los) numero(s) de posicion de ficha(s) que va a cambiar"<<std::endl;
@@ -233,8 +235,58 @@ void Tablero::cambiarFichas(NodoJugadoresLinea *jugador){
 }
 
 void Tablero::mostrarReportes(){
-    while (true) {
-        std::cout<<"1)Diccionario\n2)Fichas\n3)Arbol de Usuarios\n4)Preorden\n5)Inorden\n6)Postorden\n7)Punteo por Usuario\n8)Punteo General\n9)Tablero\n10)Ficha de jugadores\n"<<std::endl;
-        break;
+    bool continuar=true;
+    while (continuar) {
+        std::cout<<"1)Diccionario\n2)Fichas\n3)Arbol de Usuarios\n4)Preorden\n5)Inorden\n6)Postorden\n7)Punteo por Usuario\n8)Punteo General\n9)Tablero\n10)Ficha de jugadores\n11)Salir"<<std::endl;
+        std::string opcion;
+        std::cin>>opcion;
+        int seleccion=stoi(opcion);
+        switch (seleccion) {
+        case 1:
+            core->diccionario->graficar();
+            break;
+        case 2:
+            core->Fichas->imprimir();
+            break;
+        case 3:
+            core->arbol->graficar();
+            break;
+        case 4:
+            core->arbol->preorder();
+            break;
+        case 5:
+            core->arbol->inorder();
+            break;
+        case 6:
+            core->arbol->postorder();
+            break;
+        case 8:
+            core->scoreboard->graficar2();
+            break;
+        case 9:
+            core->matriz->imprimir();
+            break;
+        case 10:
+            if(core->onlinePlayers->inicio!=NULL && core->onlinePlayers->fin!=NULL){
+                core->onlinePlayers->inicio->jugador->fichas->graficar(core->onlinePlayers->inicio->jugador->dato);
+                core->onlinePlayers->fin->jugador->fichas->graficar(core->onlinePlayers->fin->jugador->dato);
+            }else{
+                std::cout<<"No hay nadie jugando en este momento"<<std::endl;
+            }
+            break;
+        case 11:
+            continuar=false;
+            break;
+        default:
+            std::string usaurio;
+            std::cin>>usaurio;
+            graficarPuntaje(usaurio);
+            break;
+        }
     }
+}
+
+void Tablero::graficarPuntaje(std::string usuario){
+    NodoArbol *auxusuario=core->arbol->get(usuario);
+    auxusuario->punteo->graficar(auxusuario->dato);
 }
