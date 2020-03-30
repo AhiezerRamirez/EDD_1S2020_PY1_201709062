@@ -16,9 +16,9 @@ void Tablero::escojerJugadores(){
     //while (true) {
         std::cout<<"Escoja al jugador 1"<<std::endl;
         std::cout<<"Escriba el nombre dell jugador 1"<<std::endl;
-        std::string player="Silvia";
+        //std::string player;
         //std::cin>>player;
-        NodoArbol *jugador1=core->arbol->get(player);
+        NodoArbol *jugador1=core->arbol->get("Silvia");
         std::cout<<"Escoja al jugador 2"<<std::endl;
         std::cout<<"Escriba el nombre dell jugador 2"<<std::endl;
         //std::cin>>player;
@@ -38,19 +38,30 @@ void Tablero::escojerJugadores(){
 
             }
             core->onlinePlayers->ingrear(jugador2);
-            core->matriz->insertar("4",4,"5",5,"H","triple",2);
+            /*core->matriz->insertar("4",4,"5",5,"H","triple",2);
             core->matriz->insertar("4",4,"6",6,"O","normal",3);
             core->matriz->insertar("4",4,"7",7,"L","normal",9);
             core->matriz->insertar("4",4,"8",8,"A","doble",2);
             core->matriz->insertar("3",3,"8",8,"C","normal",1);
             core->matriz->insertar("5",5,"8",8,"S","normal",8);
             core->matriz->insertar("6",6,"8",8,"A","normal",2);
-            //break;
+            //break;*/
         }else{
             std::cout<<"Jugadores incorrectos"<<std::endl;
             //break;
         }
     //}
+}
+
+void Tablero::prepararTablero(){
+    NodoListaSimple *temp=core->casillasEspeciales->primero;
+    while (temp!=NULL) {
+        if(temp->tipo=="doble")
+            core->matriz->insertar(std::to_string(temp->x),temp->x,std::to_string(temp->y),temp->y,"2",temp->tipo,0);
+        else if(temp->tipo=="triple")
+            core->matriz->insertar(std::to_string(temp->x),temp->x,std::to_string(temp->y),temp->y,"3",temp->tipo,0);
+        temp=temp->siguiente;
+    }
 }
 
 void Tablero::dibujaTablero(){
@@ -61,7 +72,11 @@ void Tablero::dibujaTablero(){
         std::cout<<"**********************************************************"<<std::endl;
         std::cout<<core->onlinePlayers->mostrarJugadores()<<std::endl;
         std::cout<<"        Turno de: "+actualJugador->jugador->dato+"\n"<<std::endl;
-        std::cout<<core->matriz->mostrarMatriz()<<std::endl;
+        std::cout<<"Casillas especiales: "<<std::endl;
+        core->casillasEspeciales->toString();
+        std::cout<<"Diccionario: "<<std::endl;
+        std::cout<<core->diccionario->mostrarDiccionario();
+        //std::cout<<core->matriz->mostrarMatriz()<<std::endl;
         std::cout<<actualJugador->jugador->dato+" ingrese el numero de letras a utilizar ->";
         std::vector<std::vector<int>> entradas;
         listaJugadas *listJ=new listaJugadas();
@@ -106,8 +121,8 @@ void Tablero::dibujaTablero(){
                 core->scoreboard->insertar(core->onlinePlayers->inicio->jugador->dato,core->onlinePlayers->inicio->jugador->puntos);
                 core->scoreboard->insertar(core->onlinePlayers->fin->jugador->dato,core->onlinePlayers->fin->jugador->puntos);
                 core->onlinePlayers->vaciar();
-                std::string algo;
-                std::cin>>algo;
+                //std::string algo;
+                //std::cin>>algo;
                 break;
             }else if (numeroLetras=="cambiar") {
                 cambiarFichas(actualJugador);
@@ -153,10 +168,14 @@ bool Tablero::colocarLetras(listaJugadas *v,int orientacion,NodoJugadoresLinea *
     nodoJugada *temp=v->primero;
     while (temp!=NULL) {
         NodoListaSimple *aux=core->casillasEspeciales->buscar(temp->x,temp->y);
-        NodoFicha *ficha=actualPlayer->jugador->fichas->getFichas(temp->pos);       //Puede cambiarse para que sea temp.letra o hacer un  nodoFicha
-        temp->letra=ficha->letra;
-        temp->puntos=ficha->puntos;
-        core->matriz->insertar(std::to_string(temp->x),temp->x,std::to_string(temp->y),temp->y,ficha->letra,aux->tipo,ficha->puntos);
+        NodoFicha *ficha=actualPlayer->jugador->fichas->getFichas(temp->pos);
+        if(aux->tipo=="normal"){
+            temp->letra=ficha->letra;
+            temp->puntos=ficha->puntos;
+            core->matriz->insertar(std::to_string(temp->x),temp->x,std::to_string(temp->y),temp->y,ficha->letra,aux->tipo,ficha->puntos);
+        }else{
+            core->matriz->modificar(ficha->letra,ficha->puntos,temp->x,temp->y);
+        }
         temp=temp->siguiente;
     }
 
@@ -176,7 +195,13 @@ bool Tablero::colocarLetras(listaJugadas *v,int orientacion,NodoJugadoresLinea *
         }else{
             nodoJugada *temp=v->primero;
             while (temp!=NULL) {
-                core->matriz->borrar(std::to_string(temp->x),temp->x,std::to_string(temp->y),temp->y);
+                NodoListaSimple *aux=core->casillasEspeciales->buscar(temp->x,temp->y);
+                if(aux->tipo=="normal")
+                    core->matriz->borrar(std::to_string(temp->x),temp->x,std::to_string(temp->y),temp->y);
+                else if(aux->tipo=="doble")
+                    core->matriz->modificar("x2",0,temp->x,temp->y);
+                else
+                    core->matriz->modificar("x3",0,temp->x,temp->y);
                 actualPlayer->jugador->fichas->insertar(temp->letra,temp->puntos);
                 temp=temp->siguiente;
             }
@@ -200,8 +225,14 @@ bool Tablero::colocarLetras(listaJugadas *v,int orientacion,NodoJugadoresLinea *
         }else {
             nodoJugada *temp=v->primero;
             while (temp!=NULL) {
+                NodoListaSimple *aux=core->casillasEspeciales->buscar(temp->x,temp->y);
+                if(aux->tipo=="normal")
+                    core->matriz->borrar(std::to_string(temp->x),temp->x,std::to_string(temp->y),temp->y);
+                else if(aux->tipo=="doble")
+                    core->matriz->modificar("x2",0,temp->x,temp->y);
+                else
+                    core->matriz->modificar("x3",0,temp->x,temp->y);
                 actualPlayer->jugador->fichas->insertar(temp->letra,temp->puntos);
-                core->matriz->borrar(std::to_string(temp->x),temp->x,std::to_string(temp->y),temp->y);
                 temp=temp->siguiente;
             }
             return false;
@@ -225,11 +256,17 @@ void Tablero::cambiarFichas(NodoJugadoresLinea *jugador){
         }else{
             std::cout<<"Ingrese el (los) numero(s) de posicion de ficha(s) que va a cambiar"<<std::endl;
             for (int var = 0; var < auxcantefichas; ++var) {
-                NodoFicha *auxficha=jugador->jugador->fichas->getFichas(var);
+                std::string pos;
+                std::cin>>pos;
+                int auxpos=stoi(pos);
+                NodoFicha *auxficha=jugador->jugador->fichas->getFichas(auxpos);
                 core->Fichas->encolar(auxficha->letra,auxficha->puntos);
+                NodoCola *ficha2=core->Fichas->desencolar();
+                jugador->jugador->fichas->insertar(ficha2->letra,ficha2->puntos);
                 std::cout<<"Fichas cambiadas con exito"<<std::endl;
-                break;
+                //break;
             }
+            break;
         }
     }
 }

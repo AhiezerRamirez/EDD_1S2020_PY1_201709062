@@ -67,7 +67,11 @@ int main()
             break;
         case 3:
             tablero->escojerJugadores();
+            tablero->prepararTablero();
             tablero->dibujaTablero();
+            break;
+        case 4:
+            tablero->mostrarReportes();
             break;
         case 5:
             exit(EXIT_SUCCESS);

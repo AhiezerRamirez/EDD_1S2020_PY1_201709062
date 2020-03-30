@@ -26,6 +26,7 @@ public:
     bool contains(std::string buscar);
     std::string toString();
     void graficar();//falta graficar
+    std::string mostrarDiccionario();
 };
 
 #endif // LISTADOBLECIRCULAR_H

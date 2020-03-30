@@ -24,6 +24,7 @@ public:
     std::string buscar(int x, int y);
     int sumar(int x, int y);
     bool existe(int x, int y);
+    void modificar(std::string nuevodato,int nuevopunto, int x , int y);
 };
 
 #endif // MATRIZ_H

@@ -172,7 +172,7 @@ std::string Matriz::mostrarMatriz(){
     std::string auxmatriz[this->size+1][this->size+1];
     NodoH *temp=this->cabecerasHorizontal->primero;
     while (temp!=NULL) {
-        auxmatriz[temp->x+1][0]=temp->dato;
+        auxmatriz[temp->x+1][0]=temp->dato+"";
         NodoMatriz *aux=temp->listavertica->primero;
         while (aux!=NULL) {
             auxmatriz[aux->x+1][aux->y+1]=aux->dato;
@@ -181,6 +181,7 @@ std::string Matriz::mostrarMatriz(){
         temp=temp->adelante;
     }
     Nodo *auxtemp=this->cabeceravertical->primero;
+    auxmatriz[0][0]="R";
     while (auxtemp!=NULL) {
         auxmatriz[0][auxtemp->y+1]=auxtemp->dato;
         auxtemp=auxtemp->abajo;
@@ -196,6 +197,7 @@ std::string Matriz::mostrarMatriz(){
                 cadena+=" ";
             }
         }
+        //if(auxmatriz[0][var]!="")
         cadena+="\n";
     }
     return cadena;
@@ -256,4 +258,18 @@ bool Matriz::existe(int x, int y){
         vtemp=vtemp->abajo;
     }
     return false;
+}
+
+void Matriz::modificar(std::string nuevodato, int nuevopunto, int x, int y){
+    Nodo *auxcabecera=cabeceravertical->primero;
+    while (auxcabecera!=NULL) {
+        NodoMatriz *auxnodo=auxcabecera->listahorizonta->primero;
+        while (auxnodo!=NULL) {
+            if(auxnodo->x==x && auxnodo->y ==y){
+                auxnodo->dato=nuevodato;
+                auxnodo->puntos=nuevopunto;
+            }
+
+        }
+    }
 }

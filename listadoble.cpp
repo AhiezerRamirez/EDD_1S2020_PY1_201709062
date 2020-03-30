@@ -56,7 +56,7 @@ NodoFicha* ListaDoble::getFichas(int pos){
             }
             cur->atras->siguiente=cur->siguiente;
             cur->siguiente->atras=cur->atras;
-            this->size++;
+            this->size--;
             return cur;
         }
     }

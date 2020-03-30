@@ -110,6 +110,7 @@ public:
     Core *core;
     Tablero(Core *core);
     void escojerJugadores();
+    void prepararTablero();
     void dibujaTablero();
     bool colocarLetras(listaJugadas *v,int orientacion,NodoJugadoresLinea *actualPlayer);
     bool verificarIndices(std::vector<std::vector<int>> v,listaJugadas *listJ);

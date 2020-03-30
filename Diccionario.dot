@@ -5,5 +5,4 @@ diccionario -> proyecto[ dir=both];
 proyecto -> mundo[ dir=both];
 mundo -> hola[ dir=both];
 hola -> diccionario[ dir=both];
- {rank= same;diccionario ;proyecto ;mundo ;hola }
-}
+ }

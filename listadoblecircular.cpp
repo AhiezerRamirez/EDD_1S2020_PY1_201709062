@@ -26,6 +26,18 @@ void ListaDobleCircular::insertar(std::string dato){
      }
      this->size++;
 }
+
+std::string ListaDobleCircular::mostrarDiccionario(){
+    std::string cadena="";
+    NodoCircular *aux=this->primero;
+    while (aux!=ultimo) {
+        cadena+=aux->palabra+"\n";
+        aux=aux->siguiente;
+    }
+    cadena+=aux->palabra+"\n";
+    return cadena;
+}
+
 std::string ListaDobleCircular::toString(){
     NodoCircular *aux=this->primero;
     std::string cadena="digraph G {\n node [shape = square]; \n graph [rankdir=LR];\n";
