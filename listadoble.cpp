@@ -90,6 +90,7 @@ std::string ListaDoble::toString(){
         contado++;
         temp=temp->siguiente;
     }
+    return cadena;
 }
 
 void ListaDoble::graficar(std::string usuario){

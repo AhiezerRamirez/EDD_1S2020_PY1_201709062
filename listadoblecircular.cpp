@@ -69,5 +69,9 @@ bool ListaDobleCircular::contains(std::string buscar){
             return true;
         aux=aux->siguiente;
     }
+    if(ultimo!=NULL){
+        if(aux->palabra==buscar)
+            return true;
+    }
     return false;
 }

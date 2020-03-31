@@ -1,0 +1,10 @@
+digraph G {node [shape = square]; 
+ graph [rankdir=LR]; 
+0[lable= H]
+1[lable= R]
+2[lable= V]
+3[lable= L]
+4[lable= O]
+5[lable= A]
+6[lable= U]
+0 -> 1 -> 2 -> 3 -> 4 -> 5 -> 

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 #include "json.hpp"
 #include "core.h"
 #include "matriz.h"
@@ -45,6 +46,7 @@ int main()
     core->arbol->inorder();
     core->arbol->postorder();*/
     while (true) {
+        //system("clear");
         std::cout<<"\n\n";
         std::cout<<"-----------------------------------------"<<std::endl;
         std::cout<<"        1)Lectura de Archivo             "<<std::endl;
@@ -59,9 +61,10 @@ int main()
         switch (opcion) {
         case 1:
             leerJson(core);
-            core->llenarColaFichas();
             break;
         case 2:
+            //core->llenarColaFichas();
+            core->meterfichasPruba();
             insertarjugadores2(core);
             //ingresarJugadores(core);
             break;
@@ -143,7 +146,9 @@ void leerJson(Core *cor){
             i >> j3;
             for(unsigned int x = 0; x < j3.at("diccionario").size(); x++)
                 {
-                    cor->diccionario->insertar(j3.at("diccionario")[x].at("palabra"));
+                    std::string palabra=j3.at("diccionario")[x].at("palabra");
+                    for_each(palabra.begin(), palabra.end(), [](char& in){ in = ::toupper(in); });
+                    cor->diccionario->insertar((palabra));
                     //cout << "Palabra: " << j3.at("diccionario")[x].at("palabra") << endl;
                 }
             cor->crearMatriz(j3.at("dimension").get<int>());

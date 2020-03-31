@@ -36,7 +36,7 @@ void Core::llenarColaFichas(){
     cola_llenarficha->encolar("Y",4,1);
     cola_llenarficha->encolar("Q",5,1);
     cola_llenarficha->encolar("J",8,1);
-    cola_llenarficha->encolar("ñ",8,1);//Falta ponerle la enne
+    cola_llenarficha->encolar("Ñ",8,1);//Falta ponerle la enne
     cola_llenarficha->encolar("X",8,1);
     cola_llenarficha->encolar("Z",10,1);
     NodoCola *temp=cola_llenarficha->desencolar();
@@ -51,7 +51,28 @@ void Core::llenarColaFichas(){
         }
     }
 }
+void Core::meterfichasPruba(){
+    this->Fichas->meterradom("A",1,1);
+    this->Fichas->meterradom("S",1,2);
+    this->Fichas->meterradom("M",3,1);
+    this->Fichas->meterradom("A",1,1);
+    this->Fichas->meterradom("R",1,2);
+    this->Fichas->meterradom("H",4,3);
+    this->Fichas->meterradom("O",1,2);
+    this->Fichas->meterradom("L",1,5);
+    this->Fichas->meterradom("A",1,5);
+    this->Fichas->meterradom("V",4,3);
+    this->Fichas->meterradom("A",1,1);
+    this->Fichas->meterradom("O",1,2);
+    this->Fichas->meterradom("L",1,5);
+    this->Fichas->meterradom("G",2,1);
+    this->Fichas->meterradom("U",1,4);
+    this->Fichas->meterradom("H",4,3);
+    this->Fichas->meterradom("O",1,2);
+    this->Fichas->meterradom("L",1,5);
+    this->Fichas->meterradom("A",1,5);
 
+}
 void Core::crearMatriz(int size){
 
     this->matriz=new Matriz(size);

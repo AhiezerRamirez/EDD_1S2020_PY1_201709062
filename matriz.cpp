@@ -269,7 +269,8 @@ void Matriz::modificar(std::string nuevodato, int nuevopunto, int x, int y){
                 auxnodo->dato=nuevodato;
                 auxnodo->puntos=nuevopunto;
             }
-
+            auxnodo=auxnodo->adelante;
         }
+        auxcabecera=auxcabecera->abajo;
     }
 }

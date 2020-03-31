@@ -1,8 +1,10 @@
 digraph G {
  node [shape = square]; 
  graph [rankdir=LR];
-diccionario -> proyecto[ dir=both];
-proyecto -> mundo[ dir=both];
-mundo -> hola[ dir=both];
-hola -> diccionario[ dir=both];
+SOLO -> AGUA[ dir=both];
+AGUA -> UVA[ dir=both];
+UVA -> MAR[ dir=both];
+MAR -> SAL[ dir=both];
+SAL -> HOLA[ dir=both];
+HOLA -> SOLO[ dir=both];
  }

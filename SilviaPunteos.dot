@@ -1,0 +1,3 @@
+digraph G {node [shape = square]; 
+ graph [rankdir=LR]; 
+_diagram_info [shape="plaintext", label="Silvia", fontsize=13]"[15]"}

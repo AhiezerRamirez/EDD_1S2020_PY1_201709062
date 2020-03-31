@@ -23,6 +23,7 @@ public:
     Core();
     void llenarColaFichas();
     void crearMatriz(int size);
+    void meterfichasPruba();
 };
 
 #endif // CORE_H

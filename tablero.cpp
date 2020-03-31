@@ -66,10 +66,11 @@ void Tablero::prepararTablero(){
 
 void Tablero::dibujaTablero(){
     NodoJugadoresLinea *actualJugador=this->core->onlinePlayers->inicio;
+    //system("clear");
     while (true) {
-        std::cout<<"**********************************************************"<<std::endl;
-        std::cout<<"* -Finalizar: salir  -Cambio: cambiar -tablero reportes  *"<<std::endl;
-        std::cout<<"**********************************************************"<<std::endl;
+        std::cout<<"*****************************************************************"<<std::endl;
+        std::cout<<"* -Finalizar: salir  -Cambio: cambiar   -tablero reportes       *"<<std::endl;
+        std::cout<<"*****************************************************************"<<std::endl;
         std::cout<<core->onlinePlayers->mostrarJugadores()<<std::endl;
         std::cout<<"        Turno de: "+actualJugador->jugador->dato+"\n"<<std::endl;
         std::cout<<"Casillas especiales: "<<std::endl;
@@ -180,17 +181,30 @@ bool Tablero::colocarLetras(listaJugadas *v,int orientacion,NodoJugadoresLinea *
     }
 
     if(orientacion==0){
-        int inicial=v->findLowestX();
-        int fin=v->findHightestX();
+        std::cout<<"Ingrese la coordenada en x de inicio de su palabra"<<std::endl;
+        std::string ini;
+        std::cin>>ini;
+        std::cout<<"Ingrese la coordenada en x del fin de su palabra"<<std::endl;
+        std::string finn;
+        std::cin>>finn;
+        int inicial=stoi(ini);
+        int fin=stoi(finn);
         std::string validacion="";
         int punteo=0;
         for (int var = inicial; var <= fin; ++var) {
             validacion+=core->matriz->buscar(var,v->primero->y);
             punteo+=core->matriz->sumar(var,v->primero->y);
         }
+        std::cout<<validacion<<" esto es lo que deberia de validar"<<std::endl;
         bool contiene=core->diccionario->contains(validacion);
         if(contiene){
             actualPlayer->jugador->puntos+=punteo;
+            nodoJugada *temp=v->primero;
+            while (temp!=NULL) {
+                NodoCola *tempficha=core->Fichas->desencolar();
+                actualPlayer->jugador->fichas->insertar(tempficha->letra,tempficha->puntos);
+                temp=temp->siguiente;
+            }
             return true;
         }else{
             nodoJugada *temp=v->primero;
@@ -210,17 +224,30 @@ bool Tablero::colocarLetras(listaJugadas *v,int orientacion,NodoJugadoresLinea *
         }
         //std::cout<<validacion<<" Esto es lo que se acaba de meter a la matrix Y este es el punteo"<<punteo<<std::endl;
     }else if(orientacion==1){
-        int inicial=v->findLowestY();
-        int fin=v->findHightestY();
+        std::cout<<"Ingrese la coordenada en y de inicio de su palabra"<<std::endl;
+        std::string ini;
+        std::cin>>ini;
+        std::cout<<"Ingrese la coordenada en y del fin de su palabra"<<std::endl;
+        std::string finn;
+        std::cin>>finn;
+        int inicial=stoi(ini);
+        int fin=stoi(finn);
         std::string validacion="";
         int punteo=0;
-        for (int var = inicial; var < fin; ++var) {
+        for (int var = inicial; var <=fin; ++var) {
             validacion+=core->matriz->buscar(v->primero->x,var);
             punteo+=core->matriz->sumar(v->primero->x,var);
         }
+        std::cout<<validacion<<" esto es lo que deberia de validar"<<std::endl;
         bool contiene=core->diccionario->contains(validacion);
         if(contiene){
             actualPlayer->jugador->puntos+=punteo;
+            nodoJugada *temp=v->primero;
+            while (temp!=NULL) {
+                NodoCola *tempficha=core->Fichas->desencolar();
+                actualPlayer->jugador->fichas->insertar(tempficha->letra,tempficha->puntos);
+                temp=temp->siguiente;
+            }
             return true;
         }else {
             nodoJugada *temp=v->primero;

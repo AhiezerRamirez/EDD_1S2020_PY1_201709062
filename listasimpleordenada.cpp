@@ -57,9 +57,11 @@ void ListaSimpleOrdenada::graficar(std::string nombre){
     fileCitas.open(ruta.c_str());
     fileCitas<<texto;
     fileCitas.close();
-    system("cd /home/ahiezer/Proyecto1Edd2020/ && dot Punteos.dot -Tjpg -o Punteos.jpg");
+    std::string comando1="cd /home/ahiezer/Proyecto1Edd2020/ && dot "+nombre+"Punteos.dot -Tjpg -o "+nombre+"Punteos.jpg";
+    system(comando1.c_str());
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    system("xdg-open /home/ahiezer/Proyecto1Edd2020/Punteos.jpg");
+    std::string comando2="xdg-open /home/ahiezer/Proyecto1Edd2020/"+nombre+"Punteos.jpg";
+    system(comando2.c_str());
 }
 
 std::string ListaSimpleOrdenada::toString2(){
