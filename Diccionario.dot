@@ -1,10 +1,10 @@
 digraph G {
  node [shape = square]; 
  graph [rankdir=LR];
-SOLO -> AGUA[ dir=both];
-AGUA -> UVA[ dir=both];
+SOL -> MAL[ dir=both];
+MAL -> UVA[ dir=both];
 UVA -> MAR[ dir=both];
 MAR -> SAL[ dir=both];
 SAL -> HOLA[ dir=both];
-HOLA -> SOLO[ dir=both];
+HOLA -> SOL[ dir=both];
  }

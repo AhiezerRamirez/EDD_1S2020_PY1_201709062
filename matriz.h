@@ -13,6 +13,7 @@
 class Matriz
 {
 public:
+
     CabeceraHorizontal *cabecerasHorizontal;
     CabeceraVertica *cabeceravertical;
     int size;

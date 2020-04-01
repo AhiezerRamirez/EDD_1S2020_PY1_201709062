@@ -41,11 +41,14 @@ std::string ListaSimpleOrdenada::toString(std::string nombre){
         std::string cadena;
         cadena="digraph G {node [shape = square]; \n graph [rankdir=LR]; \n";
         cadena+="_diagram_info [shape=\"plaintext\", label=\""+nombre+"\", fontsize=13]";
-        while (temp->siguiente!=NULL) {
-            cadena+="\"["+std::to_string(temp->punteo)+"]\" ->";
-            temp=temp->siguiente;
+        if(temp!=NULL){
+            while (temp->siguiente!=NULL) {
+                cadena+="\"["+std::to_string(temp->punteo)+"]\" ->";
+                temp=temp->siguiente;
+            }
+            cadena+="\"["+std::to_string(temp->punteo)+"]\"";
         }
-        cadena+="\"["+std::to_string(temp->punteo)+"]\"}";
+        cadena+="\n}";
         return cadena;
 }
 

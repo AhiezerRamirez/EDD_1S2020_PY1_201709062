@@ -79,17 +79,19 @@ std::string ListaDoble::toString(){
     std::string cadena="digraph G {node [shape = square]; \n graph [rankdir=LR]; \n";
     int contado=0;
     while (temp!=NULL) {
-        cadena+=std::to_string(contado)+"[lable= "+temp->letra+"]\n";
+        cadena+="nodo"+std::to_string(contado)+"[label= \""+temp->letra+"\"];\n";
         contado++;
         temp=temp->siguiente;
     }
     temp=primero;
     contado=0;
     while (temp->siguiente!=NULL) {
-        cadena+=std::to_string(contado)+" -> ";
+        cadena+="nodo"+std::to_string(contado)+" -> ";
         contado++;
         temp=temp->siguiente;
     }
+    if(temp!=NULL)
+        cadena+="nodo"+std::to_string(contado)+" \n}";
     return cadena;
 }
 

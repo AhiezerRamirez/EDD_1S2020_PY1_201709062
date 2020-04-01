@@ -1,0 +1,4 @@
+digraph G {node [shape = square]; 
+ graph [rankdir=LR]; 
+_diagram_info [shape="plaintext", label="Mario", fontsize=13]"[9]"
+}

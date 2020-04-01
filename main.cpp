@@ -9,12 +9,12 @@
 using namespace std;
 using json = nlohmann::json;
 
-void leerJson(Core *cor);
+void leerJson(Core *cor,int *tam);
 void ingresarJugadores(Core *cor);
 void insertarjugadores2(Core *cor){
 
         std::cout<<"Ingresar nombre del usuario"<<std::endl;
-        string nombres[]={"Mario","Silvia","Abraham","Nelson","Rebeca"};
+        string nombres[]={"Ahiezer","Silvia","Abraham","Nelson","Rebeca"};
         bool breaker;
         for(string nombre:nombres){
             breaker=cor->arbol->insertar(nombre);
@@ -29,10 +29,11 @@ void insertarjugadores2(Core *cor){
 
 int main()
 {
-
+    int tama=0;
+    int *taman=&tama;
     Core *core=new Core();
     Tablero *tablero=new Tablero(core);
-    core->crearMatriz(15);
+    //core->crearMatriz(15);
     /*core->matriz->imprimir();
     //core->llenarColaFichas();
     //core->Fichas->imprimir();
@@ -60,7 +61,7 @@ int main()
         std::cin>>opcion;
         switch (opcion) {
         case 1:
-            leerJson(core);
+            leerJson(core,taman);
             break;
         case 2:
             //core->llenarColaFichas();
@@ -70,7 +71,7 @@ int main()
             break;
         case 3:
             tablero->escojerJugadores();
-            tablero->prepararTablero();
+            tablero->prepararTablero(taman);
             tablero->dibujaTablero();
             break;
         case 4:
@@ -134,7 +135,7 @@ void ingresarJugadores(Core *cor){
     }
 }
 
-void leerJson(Core *cor){
+void leerJson(Core *cor,int *tam){
     while (true) {
         std::cout<<"Por favor, ingrese la ruta de ubicacion"<<std::endl;
         std::cout<<"de su archivo de configuarcion"<<std::endl;
@@ -151,7 +152,7 @@ void leerJson(Core *cor){
                     cor->diccionario->insertar((palabra));
                     //cout << "Palabra: " << j3.at("diccionario")[x].at("palabra") << endl;
                 }
-            cor->crearMatriz(j3.at("dimension").get<int>());
+            *tam=j3.at("dimension").get<int>();
             //std::cout<<j3.at("dimension").get<int>()<<std::endl;
 
             for(unsigned int x = 0; x < j3.at("casillas").at("dobles").size(); x++){

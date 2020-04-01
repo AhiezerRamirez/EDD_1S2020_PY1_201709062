@@ -1,10 +1,11 @@
 digraph G {node [shape = square]; 
  graph [rankdir=LR]; 
-0[lable= H]
-1[lable= R]
-2[lable= V]
-3[lable= L]
-4[lable= O]
-5[lable= A]
-6[lable= U]
-0 -> 1 -> 2 -> 3 -> 4 -> 5 -> 
+nodo0[label= "O"];
+nodo1[label= "G"];
+nodo2[label= "S"];
+nodo3[label= "R"];
+nodo4[label= "V"];
+nodo5[label= "O"];
+nodo6[label= "U"];
+nodo0 -> nodo1 -> nodo2 -> nodo3 -> nodo4 -> nodo5 -> nodo6 
+}

@@ -1,5 +1,5 @@
 digraph G {
  node [shape = square]; 
  graph [rankdir=LR];
-Rudy -> Anibal -> Andrea -> Joselinne -> pedro 
+Ahiezer -> Abraham -> Silvia -> Nelson -> Rebeca 
 }

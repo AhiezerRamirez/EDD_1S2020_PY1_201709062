@@ -13,6 +13,7 @@ public:
         this->pos=pos;
         this->x=x;
         this->y=y;
+        this->siguiente=NULL;
     }
 };
 
@@ -32,6 +33,7 @@ public:
             if(pos<ultimo->pos){
                 ultimo->siguiente=n;
                 ultimo=n;
+                ultimo->siguiente=NULL;
             }else if(pos>primero->pos){
                 nodoJugada *temp=primero;
                 primero=n;
@@ -109,8 +111,9 @@ class Tablero
 public:
     Core *core;
     Tablero(Core *core);
+    void limpiarTablero();
     void escojerJugadores();
-    void prepararTablero();
+    void prepararTablero(int *tama);
     void dibujaTablero();
     bool colocarLetras(listaJugadas *v,int orientacion,NodoJugadoresLinea *actualPlayer);
     bool verificarIndices(std::vector<std::vector<int>> v,listaJugadas *listJ);

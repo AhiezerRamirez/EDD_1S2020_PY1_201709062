@@ -3,90 +3,67 @@ digraph {
  node [shape=rectangle, height=0.5, width=0.5]; 
  graph[ nodesep = 0.5];
 CH0[label="0"];
-CH1[label="1"];
 CH2[label="2"];
-CH3[label="3"];
 CH4[label="4"];
+CH5[label="5"];
 CH6[label="6"];
 CH10[label="10"];
 
-CV0 [label="0"];
 CV1 [label="1"];
-CV2 [label="2"];
-CV3 [label="3"];
-CV4 [label="4"];
 CV5 [label="5"];
+CV9 [label="9"];
 CV10 [label="10"];
+CV11 [label="11"];
 CV15 [label="15"];
 
-nodo001[label="H" style=filled color=lightblue];
-nodo002[label="O"];
-nodo003[label="L"];
-nodo004[label="A"];
+nodo001[label="3" style=filled color=lightblue];
 nodo0015[label="3" style=filled color=lightblue];
-nodo101[label="O"];
-nodo201[label="L"];
 nodo205[label="2" style=filled color=chartreuse];
-nodo300[label="M"];
-nodo301[label="A"];
-nodo302[label="R"];
-nodo4010[label="2" style=filled color=chartreuse];
-nodo6010[label="3" style=filled color=lightblue];
+nodo4010[label="S" style=filled color=chartreuse];
+nodo509[label="M"];
+nodo5010[label="A"];
+nodo5011[label="R"];
+nodo6010[label="L" style=filled color=lightblue];
 nodo10015[label="2" style=filled color=chartreuse];
 
 root -> CH0[ dir=both];
-CH0 -> CH1[ dir=both];
-CH1 -> CH2[ dir=both];
-CH2 -> CH3[ dir=both];
-CH3 -> CH4[ dir=both];
-CH4 -> CH6[ dir=both];
+CH0 -> CH2[ dir=both];
+CH2 -> CH4[ dir=both];
+CH4 -> CH5[ dir=both];
+CH5 -> CH6[ dir=both];
 CH6 -> CH10[ dir=both];
-root -> CV0[ dir=both];
-CV0 -> CV1 [ dir=both];
-CV1 -> CV2 [ dir=both];
-CV2 -> CV3 [ dir=both];
-CV3 -> CV4 [ dir=both];
-CV4 -> CV5 [ dir=both];
-CV5 -> CV10 [ dir=both];
-CV10 -> CV15 [ dir=both];
+root -> CV1[ dir=both];
+CV1 -> CV5 [ dir=both];
+CV5 -> CV9 [ dir=both];
+CV9 -> CV10 [ dir=both];
+CV10 -> CV11 [ dir=both];
+CV11 -> CV15 [ dir=both];
 
 CH0 -> nodo001 [ dir=both];
-nodo001 -> nodo002 [ dir=both];
-nodo002 -> nodo003 [ dir=both];
-nodo003 -> nodo004 [ dir=both];
-nodo004 -> nodo0015 [ dir=both];
-CH1 -> nodo101 [ dir=both];
-CH2 -> nodo201 [ dir=both];
-nodo201 -> nodo205 [ dir=both];
-CH3 -> nodo300 [ dir=both];
-nodo300 -> nodo301 [ dir=both];
-nodo301 -> nodo302 [ dir=both];
+nodo001 -> nodo0015 [ dir=both];
+CH2 -> nodo205 [ dir=both];
 CH4 -> nodo4010 [ dir=both];
+CH5 -> nodo509 [ dir=both];
+nodo509 -> nodo5010 [ dir=both];
+nodo5010 -> nodo5011 [ dir=both];
 CH6 -> nodo6010 [ dir=both];
 CH10 -> nodo10015 [ dir=both];
 
-CV0 -> nodo300 [constraint=false, dir=both];
 CV1 -> nodo001 [constraint=false, dir=both];
-nodo001 -> nodo101 [ dir=both];
-nodo101 -> nodo201 [ dir=both];
-nodo201 -> nodo301 [ dir=both];
-CV2 -> nodo002 [constraint=false, dir=both];
-nodo002 -> nodo302 [ dir=both];
-CV3 -> nodo003 [constraint=false, dir=both];
-CV4 -> nodo004 [constraint=false, dir=both];
 CV5 -> nodo205 [constraint=false, dir=both];
+CV9 -> nodo509 [constraint=false, dir=both];
 CV10 -> nodo4010 [constraint=false, dir=both];
-nodo4010 -> nodo6010 [ dir=both];
+nodo4010 -> nodo5010 [ dir=both];
+nodo5010 -> nodo6010 [ dir=both];
+CV11 -> nodo5011 [constraint=false, dir=both];
 CV15 -> nodo0015 [constraint=false, dir=both];
 nodo0015 -> nodo10015 [ dir=both];
 
-{ rank=same;root;CH0 ;CH1 ;CH2 ;CH3 ;CH4 ;CH6 ;CH10 ;}
-{rank= same;CV0;nodo300;}
-{rank= same;CV1;nodo001;nodo101;nodo201;nodo301;}
-{rank= same;CV2;nodo002;nodo302;}
-{rank= same;CV3;nodo003;}
-{rank= same;CV4;nodo004;}
+{ rank=same;root;CH0 ;CH2 ;CH4 ;CH5 ;CH6 ;CH10 ;}
+{rank= same;CV1;nodo001;}
 {rank= same;CV5;nodo205;}
-{rank= same;CV10;nodo4010;nodo6010;}
+{rank= same;CV9;nodo509;}
+{rank= same;CV10;nodo4010;nodo5010;nodo6010;}
+{rank= same;CV11;nodo5011;}
 {rank= same;CV15;nodo0015;nodo10015;}
 }

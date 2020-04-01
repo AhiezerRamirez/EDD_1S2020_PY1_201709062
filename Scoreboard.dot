@@ -1,0 +1,3 @@
+digraph G {node [shape = square]; 
+ graph [rankdir=LR]; 
+"[Rebeca: 5]" ->"[Abraham: 6]" ->"[Silvia: 12]" ->"[Ahiezer: 24]"}

@@ -356,5 +356,8 @@ void Tablero::mostrarReportes(){
 
 void Tablero::graficarPuntaje(std::string usuario){
     NodoArbol *auxusuario=core->arbol->get(usuario);
-    auxusuario->punteo->graficar(auxusuario->dato);
+    if(auxusuario!=NULL)
+        auxusuario->punteo->graficar(auxusuario->dato);
+    else
+        std::cout<<"Usuario no encontrado, por favor verifique el nombre y trate otra vez"<<std::endl;
 }

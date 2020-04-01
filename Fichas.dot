@@ -1,4 +1,4 @@
 digraph G {
  node [shape=record, fontname="Arial"];
-	set1 [label = "{X X 8pts |O X 1pts |T X 1pts |N X 1pts |B X 3pts |O X 1pts |I X 1pts |I X 1pts |L X 1pts |S X 1pts |R X 1pts |I X 1pts |B X 3pts |Y X 4pts |T X 1pts |T X 1pts |P X 3pts |U X 1pts |N X 1pts |I X 1pts |D X 2pts |X X 8pts |G X 2pts |Q X 5pts |R X 1pts |L X 1pts |T X 1pts |U X 1pts |L X 1pts |I X 1pts |D X 2pts |R X 1pts |N X 1pts |I X 1pts |C X 3pts |H X 4pts |C X 3pts |J X 8pts |A X 1pts |O X 1pts |R X 1pts |B X 3pts |D X 2pts |M X 3pts |I X 1pts |S X 1pts |: X 8pts |F X 4pts |Z X 10pts |O X 1pts |L X 1pts |F X 4pts |V X 4pts |C X 3pts |J X 8pts |U X 1pts |S X 1pts |C X 3pts |P X 3pts |O X 1pts |P X 3pts |U X 1pts |D X 2pts |D X 2pts |N X 1pts |Y X 4pts |U X 1pts |D X 2pts |S X 1pts |O X 1pts |O X 1pts |C X 3pts |S X 1pts |E X 1pts |O X 1pts |M X 3pts |R X 1pts |M X 3pts |H X 4pts |S X 1pts |U X 1pts |: X 8pts |O X 1pts |R X 1pts |V X 4pts |G X 2pts |N X 1pts |Z X 10pts |O X 1pts |L X 1pts |H X 4pts |S X 1pts |N X 1pts |Q X 5pts |T X 1pts |G X 2pts}"];
+	set1 [label = "{L X 1pts |V X 4pts |R X 1pts |H X 4pts |A X 1pts |L X 1pts |M X 3pts |A X 1pts |S X 1pts |L X 1pts |O X 1pts |A X 1pts}"];
  }
