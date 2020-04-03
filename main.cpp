@@ -33,19 +33,6 @@ int main()
     int *taman=&tama;
     Core *core=new Core();
     Tablero *tablero=new Tablero(core);
-    //core->crearMatriz(15);
-    /*core->matriz->imprimir();
-    //core->llenarColaFichas();
-    //core->Fichas->imprimir();
-    core->arbol->insertar("Rudy");
-    core->arbol->insertar("pedro");
-    core->arbol->insertar("Anibal");
-    core->arbol->insertar("Andrea");
-    core->arbol->insertar("Joselinne");
-    //core->arbol->graficar();
-    core->arbol->preorder();
-    core->arbol->inorder();
-    core->arbol->postorder();*/
     while (true) {
         //system("clear");
         std::cout<<"\n\n";
@@ -62,12 +49,12 @@ int main()
         switch (opcion) {
         case 1:
             leerJson(core,taman);
+            core->llenarColaFichas();
             break;
         case 2:
-            //core->llenarColaFichas();
-            core->meterfichasPruba();
-            insertarjugadores2(core);
-            //ingresarJugadores(core);
+            //core->meterfichasPruba();
+            //insertarjugadores2(core);
+            ingresarJugadores(core);
             break;
         case 3:
             tablero->escojerJugadores();
@@ -82,43 +69,19 @@ int main()
             break;
         default:
             std::cout<<"Opcion incorrecta, eliga una opcion correcta"<<std::endl;
+            std::cout<<"1)Continuar. 2)Salir"<<std::endl;
+            std::string opcion;
+            std::cin;
+            switch (stoi(opcion)) {
+            case 1:
+                break;
+            case 2:
+                exit(EXIT_SUCCESS);
+                break;
+            }
             break;
         }
     }
-    /*Matriz matrix;
-    matrix.insertar("Martes",2,"14:30",14,"Cardiologo");
-    matrix.insertar("Jueves",4,"10:30",10,"Patologo");
-    matrix.insertar("Viernes",5,"20:30",20,"Oftafmologo");
-    matrix.insertar("Martes",2,"15:30",15,"Cardiologo");
-    matrix.insertar("Lunes",1,"06:30",6,"Ginecologo");
-    matrix.insertar("Jueves",4,"14:30",14,"Urologo");
-    matrix.insertar("Martes",2,"11:30",11,"Patologo");
-    matrix.insertar("Domingo",0,"1:30",1,"Muertologo");
-    matrix.borrar("Domingo",0,"1:30",1);
-    matrix.borrar("Viernes",5,"20:30",20);
-    //matrix.insertar("Domingo",0,"1:30",1,"Muertologo");
-    //matrix.insertar("Domingo",0,"9:00",9,"Ucologo");
-    //matrix.insertar("Viernes",5,"20:30",20,"Oftafmologo");
-    //matrix.insertar("Lunes",1,"7:30",7,"Ginecologo");
-    matrix.imprimir();
-    std::cout<<matrix.cabeceravertical->primero->abajo->abajo->abajo->abajo->listahorizonta->size;
-    ArbolBinario *arbol=new ArbolBinario();
-    arbol->insertar(5);
-    arbol->insertar(3);
-    arbol->insertar(6);
-    arbol->insertar(7);
-    arbol->insertar(2);
-    arbol->insertar(9);
-    arbol->insertar(4);
-    arbol->insertar(11);
-    arbol->insertar(22);
-    arbol->insertar(17);
-    arbol->insertar(1);
-    arbol->insertar(91);
-    arbol->remover(17);
-    arbol->remover(7);
-    arbol->remover(91);
-    arbol->inorder();*/
     cout << "Hello World!" << endl;
     return 0;
 }
@@ -139,9 +102,9 @@ void leerJson(Core *cor,int *tam){
     while (true) {
         std::cout<<"Por favor, ingrese la ruta de ubicacion"<<std::endl;
         std::cout<<"de su archivo de configuarcion"<<std::endl;
-        //string ruta;
-        //std::cin>>ruta;
-        std::ifstream i("/home/ahiezer/Proyecto1Edd2020/example.json");
+        string ruta;
+        std::cin>>ruta;
+        std::ifstream i(ruta);
         if(i.is_open()){
             json j3;
             i >> j3;

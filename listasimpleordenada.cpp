@@ -16,17 +16,17 @@ void ListaSimpleOrdenada::insertar(std::string nombre, int punteo){
     }else if(punteo==ultimo->punteo || punteo == primero->punteo)
             ;
     else{
-        if(punteo > ultimo->punteo){
+        if(punteo < ultimo->punteo){
             ultimo->siguiente=n;
             ultimo=n;
-        }else if (punteo < primero->punteo) {
+        }else if (punteo > primero->punteo) {
             NodoPunteo *temp=primero;
             primero=n;
             n->siguiente=temp;
         }else {
             NodoPunteo *aux=primero;
             NodoPunteo *anterior;
-            while (aux->punteo < punteo) {
+            while (aux->punteo > punteo) {
                 anterior=aux;
                 aux=aux->siguiente;
             }

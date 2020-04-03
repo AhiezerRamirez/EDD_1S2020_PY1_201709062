@@ -1,4 +1,0 @@
-digraph G {node [shape = square]; 
- graph [rankdir=LR]; 
-_diagram_info [shape="plaintext", label="Ahiezer", fontsize=13]"[24]"
-}

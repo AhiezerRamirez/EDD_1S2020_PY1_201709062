@@ -68,23 +68,25 @@ void Matriz::imprimir(){
     filematriz<<"\n";
     Nodo *tempv=this->cabeceravertical->primero;
     while (tempv!=NULL) {
-        filematriz<<tempv->Gnombre+" [label=\""+tempv->dato+"\"];\n";
+        filematriz<<tempv->Gnombre+" [label=\""+tempv->dato+"\", group = 0 ];\n";
         tempv=tempv->abajo;
     }
     filematriz<<"\n";
     temph=this->cabecerasHorizontal->primero;
+    int con=1;
     while (temph!=NULL){
         NodoMatriz *aux=temph->listavertica->primero;
         while (aux!=NULL) {
             if(aux->tipo=="triple"){
-                filematriz<<aux->Gnombre+"[label=\""+aux->dato+"\" style=filled color=lightblue];\n";
+                filematriz<<aux->Gnombre+"[label=\""+aux->dato+"\" style=filled color=lightblue group = "+std::to_string(con)+"];\n";
             }else if (aux->tipo=="doble") {
-                filematriz<<aux->Gnombre+"[label=\""+aux->dato+"\" style=filled color=chartreuse];\n";
+                filematriz<<aux->Gnombre+"[label=\""+aux->dato+"\" style=filled color=chartreuse group = "+std::to_string(con)+"];\n";
             } else {
-                filematriz<<aux->Gnombre+"[label=\""+aux->dato+"\"];\n";
+                filematriz<<aux->Gnombre+"[label=\""+aux->dato+"\" group = "+std::to_string(con)+"];\n";
             }
             aux=aux->abajo;
         }
+        con++;
         temph=temph->adelante;
     }
     filematriz<<"\n";
