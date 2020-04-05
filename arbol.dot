@@ -1,7 +1,5 @@
 digraph BST {
     node [fontname="Arial"];
-    Ahiezer -> Abraham;
-    Ahiezer -> Silvia;
-    Silvia -> Ana;
-    Ana -> Rebeca;
+    Mario -> Ahiezer;
+    Mario -> Silvia;
 }
